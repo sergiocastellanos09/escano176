@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://escano176.es/">
 <meta property="og:locale" content="es_ES">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M3 26a13 13 0 0 1 26 0' fill='none' stroke='%2312141a' stroke-width='5'/%3E%3C/svg%3E">
-<!-- ADSENSE-HEAD: aquí irá el código de AdSense cuando haya ID de editor -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5829947072696022" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,650&family=Public+Sans:wght@400;500;650&display=swap" rel="stylesheet">
@@ -511,7 +511,7 @@ function renderResults() {
 
 // Anuncios: IDs de bloque creados en AdSense > Anuncios > Por bloque de anuncios.
 // Si un hueco no tiene ID válido, se oculta para no mostrar recuadros vacíos.
-const AD_CLIENT = 'ca-{{PUB_ID}}';
+const AD_CLIENT = 'ca-pub-5829947072696022';
 const AD_SLOTS = {top: '{{SLOT_TOP}}', side: '{{SLOT_SIDE}}', feed: '{{SLOT_FEED}}', bottom: '{{SLOT_BOTTOM}}'};
 document.querySelectorAll('.ad[data-slot]').forEach(el => {
   const id = AD_SLOTS[el.dataset.slot];
