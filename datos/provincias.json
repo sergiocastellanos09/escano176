@@ -1,0 +1,421 @@
+{
+ "note": "Escaños por circunscripción según el Real Decreto 806/2026 (BOE). 'results' queda en null hasta que haya escrutinio. Formato de results: {status, counted, turnout, updated, parties:[{name, votes, pct, seats, color}], source, sourceUrl}.",
+ "provinces": [
+  {
+   "slug": "a-coruna",
+   "name": "A Coruña",
+   "ccaa": "Galicia",
+   "seats2023": 8,
+   "seats": 8,
+   "results": null
+  },
+  {
+   "slug": "alava",
+   "name": "Álava",
+   "ccaa": "País Vasco",
+   "seats2023": 4,
+   "seats": 4,
+   "results": null
+  },
+  {
+   "slug": "albacete",
+   "name": "Albacete",
+   "ccaa": "Castilla-La Mancha",
+   "seats2023": 4,
+   "seats": 4,
+   "results": null
+  },
+  {
+   "slug": "alicante",
+   "name": "Alicante",
+   "ccaa": "Comunidad Valenciana",
+   "seats2023": 12,
+   "seats": 12,
+   "results": null
+  },
+  {
+   "slug": "almeria",
+   "name": "Almería",
+   "ccaa": "Andalucía",
+   "seats2023": 6,
+   "seats": 6,
+   "results": null
+  },
+  {
+   "slug": "asturias",
+   "name": "Asturias",
+   "ccaa": "Asturias",
+   "seats2023": 7,
+   "seats": 7,
+   "results": null
+  },
+  {
+   "slug": "avila",
+   "name": "Ávila",
+   "ccaa": "Castilla y León",
+   "seats2023": 3,
+   "seats": 3,
+   "results": null
+  },
+  {
+   "slug": "badajoz",
+   "name": "Badajoz",
+   "ccaa": "Extremadura",
+   "seats2023": 5,
+   "seats": 5,
+   "results": null
+  },
+  {
+   "slug": "baleares",
+   "name": "Baleares",
+   "ccaa": "Illes Balears",
+   "seats2023": 8,
+   "seats": 8,
+   "results": null
+  },
+  {
+   "slug": "barcelona",
+   "name": "Barcelona",
+   "ccaa": "Cataluña",
+   "seats2023": 32,
+   "seats": 32,
+   "results": null
+  },
+  {
+   "slug": "bizkaia",
+   "name": "Bizkaia",
+   "ccaa": "País Vasco",
+   "seats2023": 8,
+   "seats": 8,
+   "results": null
+  },
+  {
+   "slug": "burgos",
+   "name": "Burgos",
+   "ccaa": "Castilla y León",
+   "seats2023": 4,
+   "seats": 4,
+   "results": null
+  },
+  {
+   "slug": "caceres",
+   "name": "Cáceres",
+   "ccaa": "Extremadura",
+   "seats2023": 4,
+   "seats": 4,
+   "results": null
+  },
+  {
+   "slug": "cadiz",
+   "name": "Cádiz",
+   "ccaa": "Andalucía",
+   "seats2023": 9,
+   "seats": 8,
+   "results": null
+  },
+  {
+   "slug": "cantabria",
+   "name": "Cantabria",
+   "ccaa": "Cantabria",
+   "seats2023": 5,
+   "seats": 5,
+   "results": null
+  },
+  {
+   "slug": "castellon",
+   "name": "Castellón",
+   "ccaa": "Comunidad Valenciana",
+   "seats2023": 5,
+   "seats": 5,
+   "results": null
+  },
+  {
+   "slug": "ceuta",
+   "name": "Ceuta",
+   "ccaa": "Ceuta",
+   "seats2023": 1,
+   "seats": 1,
+   "results": null
+  },
+  {
+   "slug": "ciudad-real",
+   "name": "Ciudad Real",
+   "ccaa": "Castilla-La Mancha",
+   "seats2023": 5,
+   "seats": 5,
+   "results": null
+  },
+  {
+   "slug": "cordoba",
+   "name": "Córdoba",
+   "ccaa": "Andalucía",
+   "seats2023": 6,
+   "seats": 6,
+   "results": null
+  },
+  {
+   "slug": "cuenca",
+   "name": "Cuenca",
+   "ccaa": "Castilla-La Mancha",
+   "seats2023": 3,
+   "seats": 3,
+   "results": null
+  },
+  {
+   "slug": "gipuzkoa",
+   "name": "Gipuzkoa",
+   "ccaa": "País Vasco",
+   "seats2023": 6,
+   "seats": 6,
+   "results": null
+  },
+  {
+   "slug": "girona",
+   "name": "Girona",
+   "ccaa": "Cataluña",
+   "seats2023": 6,
+   "seats": 6,
+   "results": null
+  },
+  {
+   "slug": "granada",
+   "name": "Granada",
+   "ccaa": "Andalucía",
+   "seats2023": 7,
+   "seats": 7,
+   "results": null
+  },
+  {
+   "slug": "guadalajara",
+   "name": "Guadalajara",
+   "ccaa": "Castilla-La Mancha",
+   "seats2023": 3,
+   "seats": 3,
+   "results": null
+  },
+  {
+   "slug": "huelva",
+   "name": "Huelva",
+   "ccaa": "Andalucía",
+   "seats2023": 5,
+   "seats": 5,
+   "results": null
+  },
+  {
+   "slug": "huesca",
+   "name": "Huesca",
+   "ccaa": "Aragón",
+   "seats2023": 3,
+   "seats": 3,
+   "results": null
+  },
+  {
+   "slug": "jaen",
+   "name": "Jaén",
+   "ccaa": "Andalucía",
+   "seats2023": 5,
+   "seats": 5,
+   "results": null
+  },
+  {
+   "slug": "la-rioja",
+   "name": "La Rioja",
+   "ccaa": "La Rioja",
+   "seats2023": 4,
+   "seats": 4,
+   "results": null
+  },
+  {
+   "slug": "las-palmas",
+   "name": "Las Palmas",
+   "ccaa": "Canarias",
+   "seats2023": 8,
+   "seats": 8,
+   "results": null
+  },
+  {
+   "slug": "leon",
+   "name": "León",
+   "ccaa": "Castilla y León",
+   "seats2023": 4,
+   "seats": 4,
+   "results": null
+  },
+  {
+   "slug": "lleida",
+   "name": "Lleida",
+   "ccaa": "Cataluña",
+   "seats2023": 4,
+   "seats": 4,
+   "results": null
+  },
+  {
+   "slug": "lugo",
+   "name": "Lugo",
+   "ccaa": "Galicia",
+   "seats2023": 4,
+   "seats": 4,
+   "results": null
+  },
+  {
+   "slug": "madrid",
+   "name": "Madrid",
+   "ccaa": "Comunidad de Madrid",
+   "seats2023": 37,
+   "seats": 38,
+   "results": null
+  },
+  {
+   "slug": "malaga",
+   "name": "Málaga",
+   "ccaa": "Andalucía",
+   "seats2023": 11,
+   "seats": 11,
+   "results": null
+  },
+  {
+   "slug": "melilla",
+   "name": "Melilla",
+   "ccaa": "Melilla",
+   "seats2023": 1,
+   "seats": 1,
+   "results": null
+  },
+  {
+   "slug": "murcia",
+   "name": "Murcia",
+   "ccaa": "Región de Murcia",
+   "seats2023": 10,
+   "seats": 10,
+   "results": null
+  },
+  {
+   "slug": "navarra",
+   "name": "Navarra",
+   "ccaa": "Navarra",
+   "seats2023": 5,
+   "seats": 5,
+   "results": null
+  },
+  {
+   "slug": "ourense",
+   "name": "Ourense",
+   "ccaa": "Galicia",
+   "seats2023": 4,
+   "seats": 4,
+   "results": null
+  },
+  {
+   "slug": "palencia",
+   "name": "Palencia",
+   "ccaa": "Castilla y León",
+   "seats2023": 3,
+   "seats": 3,
+   "results": null
+  },
+  {
+   "slug": "pontevedra",
+   "name": "Pontevedra",
+   "ccaa": "Galicia",
+   "seats2023": 7,
+   "seats": 7,
+   "results": null
+  },
+  {
+   "slug": "salamanca",
+   "name": "Salamanca",
+   "ccaa": "Castilla y León",
+   "seats2023": 4,
+   "seats": 4,
+   "results": null
+  },
+  {
+   "slug": "santa-cruz-de-tenerife",
+   "name": "Santa Cruz de Tenerife",
+   "ccaa": "Canarias",
+   "seats2023": 7,
+   "seats": 7,
+   "results": null
+  },
+  {
+   "slug": "segovia",
+   "name": "Segovia",
+   "ccaa": "Castilla y León",
+   "seats2023": 3,
+   "seats": 3,
+   "results": null
+  },
+  {
+   "slug": "sevilla",
+   "name": "Sevilla",
+   "ccaa": "Andalucía",
+   "seats2023": 12,
+   "seats": 12,
+   "results": null
+  },
+  {
+   "slug": "soria",
+   "name": "Soria",
+   "ccaa": "Castilla y León",
+   "seats2023": 2,
+   "seats": 2,
+   "results": null
+  },
+  {
+   "slug": "tarragona",
+   "name": "Tarragona",
+   "ccaa": "Cataluña",
+   "seats2023": 6,
+   "seats": 6,
+   "results": null
+  },
+  {
+   "slug": "teruel",
+   "name": "Teruel",
+   "ccaa": "Aragón",
+   "seats2023": 3,
+   "seats": 3,
+   "results": null
+  },
+  {
+   "slug": "toledo",
+   "name": "Toledo",
+   "ccaa": "Castilla-La Mancha",
+   "seats2023": 6,
+   "seats": 6,
+   "results": null
+  },
+  {
+   "slug": "valencia",
+   "name": "Valencia",
+   "ccaa": "Comunidad Valenciana",
+   "seats2023": 16,
+   "seats": 16,
+   "results": null
+  },
+  {
+   "slug": "valladolid",
+   "name": "Valladolid",
+   "ccaa": "Castilla y León",
+   "seats2023": 5,
+   "seats": 5,
+   "results": null
+  },
+  {
+   "slug": "zamora",
+   "name": "Zamora",
+   "ccaa": "Castilla y León",
+   "seats2023": 3,
+   "seats": 3,
+   "results": null
+  },
+  {
+   "slug": "zaragoza",
+   "name": "Zaragoza",
+   "ccaa": "Aragón",
+   "seats2023": 7,
+   "seats": 7,
+   "results": null
+  }
+ ]
+}

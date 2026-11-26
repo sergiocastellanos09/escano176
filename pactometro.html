@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pactómetro: ¿quién suma 176? · Escaño 176</title>
+<meta name="description" content="Calculadora de pactos para la investidura tras las elecciones generales del 29N: elige quién vota sí, quién se abstiene y quién vota no, y comprueba si hay presidente.">
+<link rel="canonical" href="https://escano176.es/pactometro.html">
+<meta property="og:title" content="Pactómetro: ¿quién suma 176?">
+<meta property="og:description" content="Suma escaños y comprueba qué combinaciones permiten una investidura.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://escano176.es/pactometro.html">
+<meta property="og:image" content="https://escano176.es/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M3 26a13 13 0 0 1 26 0' fill='none' stroke='%2312141a' stroke-width='5'/%3E%3C/svg%3E">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5829947072696022" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,650&family=Public+Sans:wght@400;650&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/estilo.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Pactómetro de Escaño 176","url":"https://escano176.es/pactometro.html","applicationCategory":"ReferenceApplication","operatingSystem":"Web","inLanguage":"es","isAccessibleForFree":true,"description":"Calculadora de pactos de investidura en el Congreso de los Diputados."}</script>
+<style>
+.tool{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:32px;align-items:start;margin-top:24px}
+.hemi svg{display:block;width:100%;height:auto}
+.seat{transition:fill .25s,opacity .25s}
+.tally{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+.tally div{background:var(--soft);border-radius:8px;padding:10px 12px}
+.tally b{display:block;font-family:Newsreader,serif;font-size:30px;line-height:1.1;font-variant-numeric:tabular-nums}
+.tally span{font-size:13px;color:var(--mute)}
+.verdict{margin-top:14px;padding:14px 16px;border-radius:8px;border:1px solid var(--line);font-size:17px}
+.verdict strong{display:block;font-family:Newsreader,serif;font-size:22px}
+.verdict.ok strong{color:var(--ok)}.verdict.no strong{color:var(--no)}
+.rows{display:grid;gap:6px}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}
+.row .n{display:flex;gap:8px;align-items:center;font-weight:650}
+.row .n small{font-weight:400;color:var(--mute);font-variant-numeric:tabular-nums}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{font:inherit;font-size:14px;min-width:52px;min-height:40px;border:0;background:var(--bg);color:var(--mute);cursor:pointer;padding:0 8px}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+@media(max-width:820px){.tool{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="wrap bar">
+  <a class="brand" href="/">Escaño <b>176</b></a>
+  <nav class="scroll" aria-label="Secciones">
+    <a href="/">Portada</a><a href="/pactometro.html" aria-current="page">Pactómetro</a><a href="/calculadora-dhondt.html">Calculadora d'Hondt</a><a href="/provincias.html">Provincias</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <h1>Pactómetro: ¿quién suma 176?</h1>
+  <p class="lead">Elige qué hace cada grupo en la votación de investidura: votar sí, abstenerse o votar no. El pactómetro te dice si el candidato saldría elegido en primera o en segunda votación.</p>
+  <p class="small mute" id="src"></p>
+
+  <section class="tool">
+    <div>
+      <figure class="hemi" style="margin:0"><svg id="hemi" viewBox="0 0 200 106" role="img" aria-label="Hemiciclo del Congreso con la votación simulada"></svg></figure>
+      <div class="tally" aria-live="polite">
+        <div><b id="t-si">0</b><span>Sí</span></div>
+        <div><b id="t-abs">0</b><span>Abstención</span></div>
+        <div><b id="t-no">350</b><span>No</span></div>
+      </div>
+      <div class="verdict" id="verdict" aria-live="polite"></div>
+    </div>
+    <div>
+      <div class="rows" id="rows"></div>
+      <div class="actions">
+        <button class="btn primary" id="copy" type="button">Copiar enlace a esta combinación</button>
+        <button class="btn" id="reset" type="button">Reiniciar</button>
+      </div>
+      <p class="small mute" id="copied" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section class="prose">
+    <h2>Cómo funciona la investidura</h2>
+    <p>Tras las elecciones, el Rey consulta a los grupos y propone un candidato a presidente del Gobierno. El Congreso vota su investidura.</p>
+    <p><strong>Primera votación:</strong> el candidato necesita mayoría absoluta, es decir, al menos 176 votos a favor de los 350 diputados. Las abstenciones no cuentan a favor.</p>
+    <p><strong>Segunda votación,</strong> 48 horas después: basta con mayoría simple, es decir, más votos a favor que en contra. Aquí las abstenciones sí importan, porque no suman a los noes.</p>
+    <p>Si en dos meses desde la primera votación ningún candidato logra la investidura, las Cortes se disuelven y se repiten las elecciones.</p>
+    <p class="small mute">Simulación orientativa: asume que todos los diputados de un grupo votan lo mismo y que están presentes los 350.</p>
+  </section>
+</main>
+
+<footer><div class="wrap cols">
+  <span>Escaño 176 · Información independiente y no partidista</span>
+  <a href="/aviso-legal.html">Aviso legal</a><a href="/privacidad.html">Privacidad y cookies</a>
+</div></footer>
+
+<script>
+{
+const FALLBACK = {label: 'Congreso tras las elecciones de 2023', status: 'pending', parties: [
+  {name:'Sumar',seats:31,color:'#e51c55'},{name:'ERC',seats:7,color:'#f2a900'},{name:'EH Bildu',seats:6,color:'#a7c520'},{name:'BNG',seats:1,color:'#76b3dd'},
+  {name:'PSOE',seats:121,color:'#e30613'},{name:'PNV',seats:5,color:'#3f7a3a'},{name:'Junts',seats:7,color:'#20b2a6'},{name:'CC',seats:1,color:'#e6c300'},
+  {name:'UPN',seats:1,color:'#2a52be'},{name:'PP',seats:137,color:'#1d84ce'},{name:'Vox',seats:33,color:'#5ac035'}]};
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const okColor = c => /^#[0-9a-fA-F]{3,8}$/.test(c || '') ? c : '#888';
+let parties = [], vote = {};
+
+function layout(N) {
+  const rows = 12, r0 = 0.4, radii = [];
+  for (let i = 0; i < rows; i++) radii.push(r0 + (1 - r0) * i / (rows - 1));
+  const sum = radii.reduce((a, b) => a + b, 0);
+  const counts = radii.map(r => Math.round(N * r / sum));
+  counts[rows - 1] += N - counts.reduce((a, b) => a + b, 0);
+  const pts = [];
+  radii.forEach((r, i) => { const n = counts[i]; for (let j = 0; j < n; j++) { const a = Math.PI * (1 - (n === 1 ? .5 : j / (n - 1))); pts.push({a, x: 100 + Math.cos(a) * r * 94, y: 100 - Math.sin(a) * r * 94}); } });
+  return pts.sort((p, q) => q.a - p.a);
+}
+const PTS = layout(350);
+
+function drawHemi() {
+  const seats = [];
+  parties.forEach(p => { for (let i = 0; i < p.seats; i++) seats.push(p); });
+  let svg = '';
+  PTS.forEach((pt, i) => {
+    const p = seats[i]; const v = p ? vote[p.name] : 'no';
+    const fill = !p || v === 'no' ? 'var(--line)' : okColor(p.color);
+    const op = p && v === 'abs' ? '.35' : '1';
+    svg += '<circle class="seat" cx="' + pt.x.toFixed(2) + '" cy="' + pt.y.toFixed(2) + '" r="2.15" style="fill:' + fill + ';opacity:' + op + '"/>';
+  });
+  svg += '<line x1="100" y1="1" x2="100" y2="7" stroke="currentColor" stroke-width=".5"/>';
+  $('hemi').innerHTML = svg;
+  $('hemi').style.color = 'var(--ink)';
+}
+
+function update() {
+  let si = 0, ab = 0, no = 0;
+  parties.forEach(p => { const v = vote[p.name]; if (v === 'si') si += p.seats; else if (v === 'abs') ab += p.seats; else no += p.seats; });
+  $('t-si').textContent = si; $('t-abs').textContent = ab; $('t-no').textContent = no;
+  const v = $('verdict');
+  if (si >= 176) { v.className = 'verdict ok'; v.innerHTML = '<strong>Investidura en primera votación</strong>Hay mayoría absoluta: ' + si + ' síes, ' + (si - 175) + ' por encima de 175.'; }
+  else if (si > no) { v.className = 'verdict ok'; v.innerHTML = '<strong>Investidura en segunda votación</strong>No llega a 176 (faltan ' + (176 - si) + '), pero hay más síes que noes: ' + si + ' frente a ' + no + '.'; }
+  else if (si === 0) { v.className = 'verdict'; v.innerHTML = '<strong>Elige quién vota sí</strong>Pulsa «Sí» o «Abst.» en los grupos de la derecha.'; }
+  else { v.className = 'verdict no'; v.innerHTML = '<strong>No hay investidura</strong>Faltan ' + (176 - si) + ' para la mayoría absoluta y los noes (' + no + ') superan o igualan a los síes (' + si + ').'; }
+  drawHemi(); syncUrl();
+}
+
+function renderRows() {
+  $('rows').innerHTML = parties.slice().sort((a, b) => b.seats - a.seats).map(p => {
+    const id = esc(p.name);
+    return '<div class="row"><span class="n"><i class="sw" style="background:' + okColor(p.color) + '"></i>' + id + ' <small>' + p.seats + '</small></span>' +
+      '<span class="seg" role="group" aria-label="Voto de ' + id + '">' +
+      ['si', 'abs', 'no'].map(k => '<button type="button" data-p="' + id + '" data-v="' + k + '" aria-pressed="' + (vote[p.name] === k) + '">' + ({si: 'Sí', abs: 'Abst.', no: 'No'})[k] + '</button>').join('') +
+      '</span></div>';
+  }).join('');
+}
+
+function syncUrl() {
+  const si = parties.filter(p => vote[p.name] === 'si').map(p => p.name), ab = parties.filter(p => vote[p.name] === 'abs').map(p => p.name);
+  const q = new URLSearchParams(); if (si.length) q.set('si', si.join(',')); if (ab.length) q.set('abs', ab.join(','));
+  const s = q.toString();
+  try { history.replaceState(null, '', location.pathname + (s ? '?' + s : '')); } catch (e) {}
+}
+
+function start(data) {
+  parties = (data.parties || []).filter(p => p.seats > 0);
+  const q = new URLSearchParams(location.search);
+  const si = (q.get('si') || '').split(','), ab = (q.get('abs') || '').split(',');
+  parties.forEach(p => { vote[p.name] = si.includes(p.name) ? 'si' : ab.includes(p.name) ? 'abs' : 'no'; });
+  $('src').textContent = data.status === 'pending' ? 'Escaños: ' + (data.label || 'Congreso de 2023') + '. Tras el 29N se actualizará solo con el escrutinio.' : 'Escaños: ' + (data.label || 'escrutinio del 29N') + (data.counted != null ? ' (' + String(data.counted).replace('.', ',') + ' % escrutado)' : '') + '.';
+  renderRows(); update();
+}
+
+$('rows').addEventListener('click', e => {
+  const b = e.target.closest('button[data-p]'); if (!b) return;
+  vote[b.dataset.p] = b.dataset.v;
+  b.parentElement.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  update();
+});
+$('reset').addEventListener('click', () => { parties.forEach(p => vote[p.name] = 'no'); renderRows(); update(); });
+$('copy').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(location.href); $('copied').textContent = 'Enlace copiado.'; }
+  catch (e) { $('copied').textContent = 'Copia este enlace: ' + location.href; }
+});
+
+fetch('/datos/resultados.json', {cache: 'no-cache'}).then(r => r.ok ? r.json() : Promise.reject()).then(start).catch(() => start(FALLBACK));
+}
+</script>
+</body>
+</html>

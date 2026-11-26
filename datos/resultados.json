@@ -1,0 +1,91 @@
+{
+ "status": "pending",
+ "label": "Congreso tras las elecciones de 2023",
+ "note": "Composición salida del 23J. La noche del 29N este gráfico mostrará el escrutinio provisional.",
+ "counted": null,
+ "turnout": null,
+ "turnoutPrev": null,
+ "updated": null,
+ "parties": [
+  {
+   "name": "Sumar",
+   "seats": 31,
+   "prev": null,
+   "pct": null,
+   "color": "#e51c55"
+  },
+  {
+   "name": "ERC",
+   "seats": 7,
+   "prev": null,
+   "pct": null,
+   "color": "#f2a900"
+  },
+  {
+   "name": "EH Bildu",
+   "seats": 6,
+   "prev": null,
+   "pct": null,
+   "color": "#a7c520"
+  },
+  {
+   "name": "BNG",
+   "seats": 1,
+   "prev": null,
+   "pct": null,
+   "color": "#76b3dd"
+  },
+  {
+   "name": "PSOE",
+   "seats": 121,
+   "prev": null,
+   "pct": null,
+   "color": "#e30613"
+  },
+  {
+   "name": "PNV",
+   "seats": 5,
+   "prev": null,
+   "pct": null,
+   "color": "#3f7a3a"
+  },
+  {
+   "name": "Junts",
+   "seats": 7,
+   "prev": null,
+   "pct": null,
+   "color": "#20b2a6"
+  },
+  {
+   "name": "CC",
+   "seats": 1,
+   "prev": null,
+   "pct": null,
+   "color": "#e6c300"
+  },
+  {
+   "name": "UPN",
+   "seats": 1,
+   "prev": null,
+   "pct": null,
+   "color": "#2a52be"
+  },
+  {
+   "name": "PP",
+   "seats": 137,
+   "prev": null,
+   "pct": null,
+   "color": "#1d84ce"
+  },
+  {
+   "name": "Vox",
+   "seats": 33,
+   "prev": null,
+   "pct": null,
+   "color": "#5ac035"
+  }
+ ],
+ "source": "Ministerio del Interior",
+ "sourceUrl": "https://29neleccionesgenerales.es",
+ "siteUpdated": "2026-11-25T14:45:00+01:00"
+}

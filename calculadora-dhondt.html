@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora d'Hondt: reparto de escaños por provincia · Escaño 176</title>
+<meta name="description" content="Calcula el reparto de escaños con la ley d'Hondt en cualquier provincia: introduce los votos de cada partido y los votos en blanco. Incluye el umbral del 3 % y los escaños de 2026.">
+<link rel="canonical" href="https://escano176.es/calculadora-dhondt.html">
+<meta property="og:title" content="Calculadora d'Hondt">
+<meta property="og:description" content="Reparto de escaños con la ley d'Hondt en cualquier circunscripción.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://escano176.es/calculadora-dhondt.html">
+<meta property="og:image" content="https://escano176.es/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M3 26a13 13 0 0 1 26 0' fill='none' stroke='%2312141a' stroke-width='5'/%3E%3C/svg%3E">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5829947072696022" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,650&family=Public+Sans:wght@400;650&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/estilo.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora d'Hondt de Escaño 176","url":"https://escano176.es/calculadora-dhondt.html","applicationCategory":"ReferenceApplication","operatingSystem":"Web","inLanguage":"es","isAccessibleForFree":true,"description":"Reparto de escaños por el sistema d'Hondt con umbral del 3 % para las circunscripciones del Congreso."}</script>
+<style>
+.tool{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:32px;align-items:start;margin-top:24px}
+.cfg{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr);gap:12px;margin-bottom:16px}
+.prow{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) 44px;gap:8px;margin-bottom:8px;align-items:end}
+.prow .x{min-height:44px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--mute);font-size:20px;cursor:pointer}
+.big{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+.big div{background:var(--soft);border-radius:8px;padding:10px 14px}
+.big b{display:block;font-family:Newsreader,serif;font-size:28px;line-height:1.1;font-variant-numeric:tabular-nums}
+.big span{font-size:13px;color:var(--mute)}
+.seatbar{display:flex;height:22px;border-radius:6px;overflow:hidden;margin:8px 0 16px;background:var(--soft)}
+.seatbar i{display:block;height:100%}
+.q td.win{font-weight:650;background:var(--soft)}
+.note{font-size:15px;margin-top:12px}
+@media(max-width:820px){.tool{grid-template-columns:minmax(0,1fr)}.cfg{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.cfg>div:first-child{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<header><div class="wrap bar">
+  <a class="brand" href="/">Escaño <b>176</b></a>
+  <nav class="scroll" aria-label="Secciones">
+    <a href="/">Portada</a><a href="/pactometro.html">Pactómetro</a><a href="/calculadora-dhondt.html" aria-current="page">Calculadora d'Hondt</a><a href="/provincias.html">Provincias</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <h1>Calculadora d'Hondt</h1>
+  <p class="lead">Calcula cuántos escaños obtiene cada partido en una provincia. Elige la circunscripción, escribe los votos y el reparto se hace al momento, con el umbral del 3 % que fija la ley electoral para el Congreso.</p>
+
+  <section class="tool">
+    <form id="f" class="panel" autocomplete="off">
+      <div class="cfg">
+        <div><label for="prov">Circunscripción</label><select id="prov"></select></div>
+        <div><label for="seats">Escaños</label><input id="seats" type="number" min="1" max="400" inputmode="numeric"></div>
+        <div><label for="blank">Votos en blanco</label><input id="blank" type="number" min="0" inputmode="numeric" value="0"></div>
+      </div>
+      <div id="plist"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+        <button class="btn" type="button" id="add">Añadir partido</button>
+        <button class="btn" type="button" id="clear">Vaciar</button>
+      </div>
+      <p class="small mute" id="sample-note" style="margin:12px 0 0">Ejemplo con votos inventados. Sustitúyelos por los tuyos.</p>
+    </form>
+
+    <div aria-live="polite">
+      <div class="big" id="big"></div>
+      <div class="seatbar" id="bar"></div>
+      <div class="scroll-x"><table id="res"></table></div>
+      <p class="note" id="last"></p>
+    </div>
+  </section>
+
+  <h2>Tabla de cocientes</h2>
+  <p class="small mute">Los votos de cada partido divididos entre 1, 2, 3… En negrita, los cocientes más altos, que son los que se llevan escaño.</p>
+  <div class="scroll-x"><table class="q" id="qt"></table></div>
+
+  <section class="prose">
+    <h2>Cómo funciona la ley d'Hondt</h2>
+    <p>En las elecciones al Congreso cada provincia es una circunscripción que reparte un número fijo de escaños. Primero quedan fuera los partidos que no llegan al 3 % de los votos válidos de esa provincia; los votos válidos incluyen los votos en blanco, pero no los nulos.</p>
+    <p>Después, los votos de cada partido se dividen entre 1, 2, 3 y así hasta el número de escaños en juego. Los escaños se asignan a los cocientes más altos. Si dos cocientes empatan, el escaño va al partido con más votos totales.</p>
+    <p>Por eso en las provincias que reparten pocos escaños hace falta un porcentaje de voto mucho mayor que el 3 % para entrar: en Soria, con 2 diputados, el umbral real es muy superior al de Madrid, que reparte 38.</p>
+  </section>
+</main>
+
+<footer><div class="wrap cols">
+  <span>Escaño 176 · Información independiente y no partidista</span>
+  <a href="/aviso-legal.html">Aviso legal</a><a href="/privacidad.html">Privacidad y cookies</a>
+</div></footer>
+
+<script>
+{
+const PROV = [["A Coruña",8],["Álava",4],["Albacete",4],["Alicante",12],["Almería",6],["Asturias",7],["Ávila",3],["Badajoz",5],["Baleares",8],["Barcelona",32],["Bizkaia",8],["Burgos",4],["Cáceres",4],["Cádiz",8],["Cantabria",5],["Castellón",5],["Ceuta",1],["Ciudad Real",5],["Córdoba",6],["Cuenca",3],["Gipuzkoa",6],["Girona",6],["Granada",7],["Guadalajara",3],["Huelva",5],["Huesca",3],["Jaén",5],["La Rioja",4],["Las Palmas",8],["León",4],["Lleida",4],["Lugo",4],["Madrid",38],["Málaga",11],["Melilla",1],["Murcia",10],["Navarra",5],["Ourense",4],["Palencia",3],["Pontevedra",7],["Salamanca",4],["Santa Cruz de Tenerife",7],["Segovia",3],["Sevilla",12],["Soria",2],["Tarragona",6],["Teruel",3],["Toledo",6],["Valencia",16],["Valladolid",5],["Zamora",3],["Zaragoza",7]];
+const COLORS = ['#1d84ce','#e30613','#5ac035','#b5297a','#6b2a7a','#f2a900','#20b2a6','#a7c520','#76b3dd','#3f7a3a','#6e6e6e','#e6c300'];
+const SAMPLE = {prov: 'Salamanca', blank: 2100, parties: [['Partido A', 81000], ['Partido B', 62000], ['Partido C', 24000], ['Partido D', 11500], ['Partido E', 5200]]};
+const KEY = 'e176-dhondt';
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nf = n => new Intl.NumberFormat('es-ES').format(n);
+const pf = n => new Intl.NumberFormat('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2}).format(n) + ' %';
+
+$('prov').innerHTML = PROV.map(([n, s]) => '<option value="' + esc(n) + '">' + esc(n) + ' (' + s + ')</option>').join('') + '<option value="">Otra (escaños a mano)</option>';
+
+function prow(name, votes) {
+  const d = document.createElement('div'); d.className = 'prow';
+  d.innerHTML = '<div><label>Partido</label><input class="pn" maxlength="40"></div><div><label>Votos</label><input class="pv" type="number" min="0" inputmode="numeric"></div><button type="button" class="x" aria-label="Quitar partido">×</button>';
+  d.querySelector('.pn').value = name || ''; d.querySelector('.pv').value = votes ?? '';
+  $('plist').appendChild(d);
+}
+
+function load() {
+  let st = null; try { st = JSON.parse(localStorage.getItem(KEY)); } catch (e) {}
+  const s = st && Array.isArray(st.parties) ? st : SAMPLE;
+  $('prov').value = s.prov ?? 'Salamanca';
+  $('seats').value = s.seats || (PROV.find(p => p[0] === $('prov').value) || [0, 4])[1];
+  $('blank').value = s.blank ?? 0;
+  s.parties.forEach(([n, v]) => prow(n, v));
+  $('sample-note').hidden = s !== SAMPLE;
+}
+
+function read() {
+  return {prov: $('prov').value, seats: Math.max(1, Math.min(400, parseInt($('seats').value) || 1)), blank: Math.max(0, parseInt($('blank').value) || 0),
+    parties: [...document.querySelectorAll('.prow')].map(r => [r.querySelector('.pn').value.trim(), Math.max(0, parseInt(r.querySelector('.pv').value) || 0)])};
+}
+
+function calc() {
+  const st = read();
+  try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {}
+  const ps = st.parties.map(([n, v], i) => ({n: n || 'Partido ' + (i + 1), v, c: COLORS[i % COLORS.length], s: 0}));
+  const valid = ps.reduce((a, p) => a + p.v, 0) + st.blank;
+  const thr = valid * 0.03;
+  const ok = ps.filter(p => p.v > 0 && p.v >= thr);
+  const qs = [];
+  ok.forEach(p => { for (let d = 1; d <= st.seats; d++) qs.push({p, d, q: p.v / d}); });
+  qs.sort((a, b) => b.q - a.q || b.p.v - a.p.v);
+  const won = qs.slice(0, st.seats); won.forEach(x => x.p.s++);
+  const winSet = new Set(won.map(x => x.p.n + '|' + x.d));
+  const out = ps.slice().sort((a, b) => b.s - a.s || b.v - a.v);
+
+  $('big').innerHTML = '<div><b>' + nf(valid) + '</b><span>votos válidos</span></div><div><b>' + nf(Math.ceil(thr)) + '</b><span>umbral del 3 %</span></div><div><b>' + st.seats + '</b><span>escaños</span></div>';
+  $('bar').innerHTML = valid ? out.filter(p => p.s).map(p => '<i title="' + esc(p.n) + ': ' + p.s + '" style="width:' + (p.s / st.seats * 100) + '%;background:' + p.c + '"></i>').join('') : '';
+  $('res').innerHTML = '<thead><tr><th>Partido</th><th class="r">Votos</th><th class="r">%</th><th class="r">Escaños</th></tr></thead><tbody>' +
+    out.map(p => '<tr><td><i class="sw" style="background:' + p.c + '"></i> ' + esc(p.n) + (p.v < thr && p.v > 0 ? ' <span class="small mute">(no llega al 3 %)</span>' : '') + '</td><td class="r">' + nf(p.v) + '</td><td class="r">' + (valid ? pf(p.v / valid * 100) : '—') + '</td><td class="r"><b>' + p.s + '</b></td></tr>').join('') + '</tbody>';
+
+  const last = won[won.length - 1], next = qs[st.seats];
+  if (last && next) {
+    const need = Math.floor(last.q * (next.p.s + 1)) + 1 - next.p.v;
+    $('last').innerHTML = 'El último escaño fue para <strong>' + esc(last.p.n) + '</strong>. A <strong>' + esc(next.p.n) + '</strong> le habrían bastado unos <strong>' + nf(Math.max(1, need)) + ' votos más</strong> para quitárselo.';
+  } else $('last').textContent = valid ? '' : 'Escribe los votos de al menos un partido.';
+
+  const cols = Math.min(st.seats, 12);
+  $('qt').innerHTML = '<thead><tr><th>Partido</th>' + Array.from({length: cols}, (_, i) => '<th class="r">÷' + (i + 1) + '</th>').join('') + '</tr></thead><tbody>' +
+    ok.slice().sort((a, b) => b.v - a.v).map(p => '<tr><td>' + esc(p.n) + '</td>' + Array.from({length: cols}, (_, i) => '<td class="r' + (winSet.has(p.n + '|' + (i + 1)) ? ' win' : '') + '">' + nf(Math.round(p.v / (i + 1))) + '</td>').join('') + '</tr>').join('') + '</tbody>';
+}
+
+$('prov').addEventListener('change', () => { const p = PROV.find(x => x[0] === $('prov').value); if (p) $('seats').value = p[1]; calc(); });
+$('f').addEventListener('input', e => { if (e.target.id === 'seats' && $('prov').value) { const p = PROV.find(x => x[0] === $('prov').value); if (p && +$('seats').value !== p[1]) $('prov').value = ''; } $('sample-note').hidden = true; calc(); });
+$('f').addEventListener('submit', e => e.preventDefault());
+$('plist').addEventListener('click', e => { if (e.target.classList.contains('x')) { e.target.closest('.prow').remove(); calc(); } });
+$('add').addEventListener('click', () => { prow('', ''); document.querySelector('.prow:last-child .pn').focus(); });
+$('clear').addEventListener('click', () => { $('plist').innerHTML = ''; $('blank').value = 0; prow('', ''); prow('', ''); $('sample-note').hidden = true; calc(); });
+
+load(); calc();
+}
+</script>
+</body>
+</html>

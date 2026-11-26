@@ -1,0 +1,37 @@
+/* Estilo común de las páginas de herramientas de Escaño 176 (la portada lleva el suyo propio) */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#111318);--ink:light-dark(#12141a,#eceef2);--mute:light-dark(#5d6370,#9aa1ad);--line:light-dark(#e3e5ea,#262a33);--soft:light-dark(#f4f5f7,#181b21);--ok:light-dark(#0a7a3d,#4cd48a);--no:light-dark(#b3261e,#ff7b72)}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Public Sans",system-ui,sans-serif;overflow-x:clip}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:3px}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+h1,h2,h3{font-family:Newsreader,Georgia,serif;font-weight:650;line-height:1.1;text-wrap:balance;margin:0}
+h1{font-size:clamp(32px,4.4vw,48px)}h2{font-size:clamp(24px,2.8vw,30px);margin-top:40px}h3{font-size:19px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 max(4vw,16px)}
+.mute{color:var(--mute)}.small{font-size:14px}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:20px;min-height:60px}
+.brand{font-family:Newsreader,serif;font-weight:650;font-size:24px;text-decoration:none;white-space:nowrap}
+nav.scroll{display:flex;gap:4px;overflow-x:auto;flex:1;scrollbar-width:none}
+nav.scroll a{flex:none;text-decoration:none;font-size:15px;padding:10px 12px;border-radius:6px;color:var(--mute)}
+nav.scroll a:hover,nav.scroll a[aria-current]{color:var(--ink);background:var(--soft)}
+main{padding:28px 0 56px}
+.lead{font-size:18px;max-width:65ch;margin:12px 0 0}
+.panel{border:1px solid var(--line);border-radius:10px;padding:18px}
+.btn{font:inherit;font-size:15px;min-height:44px;padding:8px 16px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.btn:hover{background:var(--soft)}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+input,select{font:inherit;font-size:16px;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%}
+label{font-size:14px;font-weight:650;display:block;margin-bottom:4px}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:13px;color:var(--mute);font-weight:650}
+td.r,th.r{text-align:right;white-space:nowrap}
+.sw{display:inline-block;width:11px;height:11px;border-radius:50%;flex:none;vertical-align:middle}
+.scroll-x{overflow-x:auto}
+.prose{max-width:70ch;font-size:17px}.prose p{margin:0 0 14px}
+.ad{margin:24px auto;text-align:center}
+footer{border-top:1px solid var(--line);padding:32px 0 44px;font-size:14px;color:var(--mute)}
+footer .cols{display:flex;flex-wrap:wrap;gap:12px 24px}
+@media(max-width:600px){table{font-size:14px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
