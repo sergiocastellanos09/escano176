@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Calculadora d'Hondt: reparto de escaños por provincia · Escaño 176</title>
-<meta name="description" content="Calcula el reparto de escaños con la ley d'Hondt en cualquier provincia: introduce los votos de cada partido y los votos en blanco. Incluye el umbral del 3 % y los escaños de 2026.">
+<title>Calculadora d'Hondt: escaños por provincia con porcentajes · Escaño 176</title>
+<meta name="description" content="Calcula cuántos diputados saca cada partido en tu provincia con la ley d'Hondt. Solo tienes que poner porcentajes. Explicación sencilla, ejemplo paso a paso y los escaños de las 52 provincias.">
 <link rel="canonical" href="https://escano176.es/calculadora-dhondt.html">
-<meta property="og:title" content="Calculadora d'Hondt">
-<meta property="og:description" content="Reparto de escaños con la ley d'Hondt en cualquier circunscripción.">
+<meta property="og:title" content="Calculadora d'Hondt por provincias">
+<meta property="og:description" content="¿Cuántos escaños saca cada partido en tu provincia? Pon porcentajes y lo ves al momento.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://escano176.es/calculadora-dhondt.html">
 <meta property="og:image" content="https://escano176.es/og.png">
@@ -17,21 +17,43 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,650&family=Public+Sans:wght@400;650&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/estilo.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora d'Hondt de Escaño 176","url":"https://escano176.es/calculadora-dhondt.html","applicationCategory":"ReferenceApplication","operatingSystem":"Web","inLanguage":"es","isAccessibleForFree":true,"description":"Reparto de escaños por el sistema d'Hondt con umbral del 3 % para las circunscripciones del Congreso."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora d'Hondt de Escaño 176","url":"https://escano176.es/calculadora-dhondt.html","applicationCategory":"ReferenceApplication","operatingSystem":"Web","inLanguage":"es","isAccessibleForFree":true,"description":"Reparto de escaños por la ley d'Hondt en las 52 circunscripciones del Congreso, introduciendo porcentajes de voto."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"¿Qué es la ley d'Hondt?","acceptedAnswer":{"@type":"Answer","text":"Es el método matemático que se usa en España para repartir los escaños de cada provincia entre los partidos según sus votos. Se dividen los votos de cada partido entre 1, 2, 3… y los escaños van a los resultados más altos."}},
+{"@type":"Question","name":"¿Qué porcentaje hace falta para sacar un diputado?","acceptedAnswer":{"@type":"Answer","text":"Depende de la provincia. La ley exige al menos un 3 % de los votos válidos, pero en las provincias que reparten pocos escaños hace falta mucho más: en una provincia de 3 diputados, alrededor de un 25 % asegura uno."}},
+{"@type":"Question","name":"¿Los votos en blanco cuentan?","acceptedAnswer":{"@type":"Answer","text":"Sí, pero solo para calcular el umbral del 3 %, porque se suman a los votos válidos. No se llevan escaños. Los votos nulos no cuentan para nada."}},
+{"@type":"Question","name":"¿Por qué un partido con el 40 % puede sacar la mitad de los escaños?","acceptedAnswer":{"@type":"Answer","text":"Porque al repartir pocos escaños por provincia, el sistema favorece a los partidos más votados de cada una. Cuantos menos escaños reparte una provincia, mayor es ese efecto."}},
+{"@type":"Question","name":"¿Cuántos diputados elige cada provincia?","acceptedAnswer":{"@type":"Answer","text":"En 2026, Madrid elige 38, Barcelona 32, Valencia 16, Sevilla y Alicante 12, Málaga 11 y Murcia 10. Las provincias menos pobladas eligen entre 2 y 4, y Ceuta y Melilla uno cada una. En total son 350."}}
+]}</script>
 <style>
-.tool{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:32px;align-items:start;margin-top:24px}
-.cfg{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr);gap:12px;margin-bottom:16px}
-.prow{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) 44px;gap:8px;margin-bottom:8px;align-items:end}
+.tool{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start;margin-top:24px}
+.cfg{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr);gap:12px;margin-bottom:14px}
+.prow{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1.6fr) 84px 44px;gap:8px;align-items:center;margin-bottom:10px}
+.prow .other{grid-column:1/-1;display:none}
+.prow.is-other .other{display:block}
+.prow input[type=range]{min-height:44px;padding:0;border:0;accent-color:var(--ink)}
 .prow .x{min-height:44px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--mute);font-size:20px;cursor:pointer}
-.big{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+.hdr{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1.6fr) 84px 44px;gap:8px;font-size:13px;font-weight:650;color:var(--mute);margin-bottom:4px}
+.sum{font-size:14px;margin:6px 0 0}.sum.bad{color:var(--no)}
+.big{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
 .big div{background:var(--soft);border-radius:8px;padding:10px 14px}
 .big b{display:block;font-family:Newsreader,serif;font-size:28px;line-height:1.1;font-variant-numeric:tabular-nums}
 .big span{font-size:13px;color:var(--mute)}
 .seatbar{display:flex;height:22px;border-radius:6px;overflow:hidden;margin:8px 0 16px;background:var(--soft)}
 .seatbar i{display:block;height:100%}
 .q td.win{font-weight:650;background:var(--soft)}
-.note{font-size:15px;margin-top:12px}
-@media(max-width:820px){.tool{grid-template-columns:minmax(0,1fr)}.cfg{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.cfg>div:first-child{grid-column:1/-1}}
+.note{font-size:16px;margin-top:12px;background:var(--soft);border-radius:8px;padding:12px 14px}
+.steps{counter-reset:s;list-style:none;padding:0;margin:16px 0;display:grid;gap:14px;max-width:70ch}
+.steps li{display:grid;grid-template-columns:36px minmax(0,1fr);gap:12px;font-size:17px}
+.steps li::before{counter-increment:s;content:counter(s);font-family:Newsreader,serif;font-weight:650;font-size:22px;width:36px;height:36px;border-radius:50%;background:var(--soft);display:grid;place-items:center}
+.ex{max-width:640px}
+.ex td.win{font-weight:650;background:var(--soft)}
+details{border-bottom:1px solid var(--line);padding:12px 0;max-width:70ch}
+summary{font-weight:650;cursor:pointer;font-size:17px;min-height:28px}
+details p{margin:10px 0 0;font-size:16px}
+.provs td a{white-space:nowrap}
+@media(max-width:880px){.tool{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:520px){.cfg{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.cfg>div:first-child{grid-column:1/-1}.prow,.hdr{grid-template-columns:minmax(0,1fr) 96px 44px}.prow .rng,.hdr .rng{display:none}}
 </style>
 </head>
 <body>
@@ -43,22 +65,24 @@
 </div></header>
 
 <main class="wrap">
-  <h1>Calculadora d'Hondt</h1>
-  <p class="lead">Calcula cuántos escaños obtiene cada partido en una provincia. Elige la circunscripción, escribe los votos y el reparto se hace al momento, con el umbral del 3 % que fija la ley electoral para el Congreso.</p>
+  <h1>Calculadora d'Hondt: ¿cuántos diputados saca cada partido en tu provincia?</h1>
+  <p class="lead">Elige tu provincia, pon el porcentaje de voto de cada partido y verás al momento cómo se reparten los escaños. No hace falta saber cuántos votos hay: con porcentajes sale exactamente igual.</p>
 
-  <section class="tool">
+  <section class="tool" aria-label="Calculadora">
     <form id="f" class="panel" autocomplete="off">
       <div class="cfg">
-        <div><label for="prov">Circunscripción</label><select id="prov"></select></div>
+        <div><label for="prov">Provincia</label><select id="prov"></select></div>
         <div><label for="seats">Escaños</label><input id="seats" type="number" min="1" max="400" inputmode="numeric"></div>
-        <div><label for="blank">Votos en blanco</label><input id="blank" type="number" min="0" inputmode="numeric" value="0"></div>
+        <div><label for="blank">En blanco (%)</label><input id="blank" type="number" min="0" max="100" step="0.1" inputmode="decimal"></div>
       </div>
+      <div class="hdr" aria-hidden="true"><span>Partido</span><span class="rng"></span><span>% voto</span><span></span></div>
       <div id="plist"></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+      <p class="sum" id="sum" aria-live="polite"></p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
         <button class="btn" type="button" id="add">Añadir partido</button>
-        <button class="btn" type="button" id="clear">Vaciar</button>
+        <button class="btn" type="button" id="load">Restablecer</button>
       </div>
-      <p class="small mute" id="sample-note" style="margin:12px 0 0">Ejemplo con votos inventados. Sustitúyelos por los tuyos.</p>
+      <p class="small mute" id="origin" style="margin:12px 0 0"></p>
     </form>
 
     <div aria-live="polite">
@@ -69,15 +93,46 @@
     </div>
   </section>
 
-  <h2>Tabla de cocientes</h2>
-  <p class="small mute">Los votos de cada partido divididos entre 1, 2, 3… En negrita, los cocientes más altos, que son los que se llevan escaño.</p>
+  <h2>Así se ha hecho el reparto</h2>
+  <p class="small mute">El porcentaje de cada partido dividido entre 1, 2, 3… Los números en negrita son los más altos, y cada uno es un escaño.</p>
   <div class="scroll-x"><table class="q" id="qt"></table></div>
 
-  <section class="prose">
-    <h2>Cómo funciona la ley d'Hondt</h2>
-    <p>En las elecciones al Congreso cada provincia es una circunscripción que reparte un número fijo de escaños. Primero quedan fuera los partidos que no llegan al 3 % de los votos válidos de esa provincia; los votos válidos incluyen los votos en blanco, pero no los nulos.</p>
-    <p>Después, los votos de cada partido se dividen entre 1, 2, 3 y así hasta el número de escaños en juego. Los escaños se asignan a los cocientes más altos. Si dos cocientes empatan, el escaño va al partido con más votos totales.</p>
-    <p>Por eso en las provincias que reparten pocos escaños hace falta un porcentaje de voto mucho mayor que el 3 % para entrar: en Soria, con 2 diputados, el umbral real es muy superior al de Madrid, que reparte 38.</p>
+  <section>
+    <h2>La ley d'Hondt explicada fácil</h2>
+    <p class="prose" style="margin-top:12px">En las elecciones generales no se vota a nivel de toda España: cada provincia reparte sus propios diputados. Madrid reparte 38 y Soria, 2. Para decidir cuántos se lleva cada partido se usa la ley d'Hondt, que funciona así:</p>
+    <ol class="steps">
+      <li><span><strong>Fuera los muy pequeños.</strong> El partido que no llega al 3 % de los votos de esa provincia queda fuera del reparto.</span></li>
+      <li><span><strong>Se hacen divisiones.</strong> Los votos de cada partido se dividen entre 1, entre 2, entre 3… tantas veces como escaños haya.</span></li>
+      <li><span><strong>Se ordenan los resultados</strong> de mayor a menor, mezclando los de todos los partidos.</span></li>
+      <li><span><strong>Cada uno de los números más altos es un escaño.</strong> Si la provincia reparte 4, se cogen los 4 más altos y se mira de qué partido es cada uno.</span></li>
+    </ol>
+    <h3 style="margin-top:28px">Ejemplo: una provincia que reparte 4 diputados</h3>
+    <p class="prose" style="margin-top:8px">Cinco partidos con estos resultados: A, 42 %; B, 30 %; C, 20 %; D, 6 %, y E, 2 %. E no llega al 3 %, así que queda fuera.</p>
+    <div class="scroll-x ex"><table>
+      <thead><tr><th>Partido</th><th class="r">÷ 1</th><th class="r">÷ 2</th><th class="r">÷ 3</th><th class="r">Escaños</th></tr></thead>
+      <tbody>
+        <tr><td>A (42 %)</td><td class="r win">42</td><td class="r win">21</td><td class="r">14</td><td class="r"><b>2</b></td></tr>
+        <tr><td>B (30 %)</td><td class="r win">30</td><td class="r">15</td><td class="r">10</td><td class="r"><b>1</b></td></tr>
+        <tr><td>C (20 %)</td><td class="r win">20</td><td class="r">10</td><td class="r">6,7</td><td class="r"><b>1</b></td></tr>
+        <tr><td>D (6 %)</td><td class="r">6</td><td class="r">3</td><td class="r">2</td><td class="r"><b>0</b></td></tr>
+      </tbody>
+    </table></div>
+    <p class="prose" style="margin-top:12px">Los cuatro números más altos son 42, 30, 21 y 20. El partido A se lleva dos escaños y B y C, uno cada uno. Fíjate en que A, con el 42 % de los votos, consigue la mitad de los diputados, y D, con un 6 %, ninguno. Por eso se dice que en las provincias pequeñas el sistema favorece a los partidos grandes.</p>
+  </section>
+
+  <section>
+    <h2>Cuántos diputados elige cada provincia</h2>
+    <p class="prose" style="margin-top:12px">La última columna es una regla aproximada: con ese porcentaje, un partido tiene prácticamente asegurado al menos un diputado en la provincia. Por debajo puede conseguirlo o no, según cómo se repartan los demás votos.</p>
+    <div class="scroll-x"><table class="provs" id="provs"></table></div>
+  </section>
+
+  <section>
+    <h2>Preguntas frecuentes</h2>
+    <details><summary>¿Qué es la ley d'Hondt?</summary><p>Es el método matemático que se usa en España para repartir los escaños de cada provincia entre los partidos según sus votos. Lleva el nombre del jurista belga Victor d'Hondt, que lo ideó en el siglo XIX.</p></details>
+    <details><summary>¿Qué porcentaje hace falta para sacar un diputado?</summary><p>Depende de la provincia. La ley pide como mínimo un 3 % de los votos válidos, pero en las provincias que reparten pocos escaños hace falta mucho más. En una provincia de 3 diputados, alrededor de un 25 % asegura uno; en Madrid basta con algo menos del 3 %.</p></details>
+    <details><summary>¿Los votos en blanco cuentan?</summary><p>Sí, pero solo para calcular el 3 %, porque se suman a los votos válidos. No se llevan ningún escaño. Los votos nulos no cuentan para nada.</p></details>
+    <details><summary>¿Por qué un partido con el 40 % puede sacar la mitad de los escaños?</summary><p>Porque cada provincia reparte pocos escaños y el redondeo favorece al que más votos tiene en cada una. Cuantos menos escaños reparte una provincia, más se nota.</p></details>
+    <details><summary>¿Y si dos partidos empatan?</summary><p>Si dos resultados de la división empatan en el último escaño, se lo lleva el partido con más votos en total.</p></details>
   </section>
 </main>
 
@@ -88,77 +143,139 @@
 
 <script>
 {
-const PROV = [["A Coruña",8],["Álava",4],["Albacete",4],["Alicante",12],["Almería",6],["Asturias",7],["Ávila",3],["Badajoz",5],["Baleares",8],["Barcelona",32],["Bizkaia",8],["Burgos",4],["Cáceres",4],["Cádiz",8],["Cantabria",5],["Castellón",5],["Ceuta",1],["Ciudad Real",5],["Córdoba",6],["Cuenca",3],["Gipuzkoa",6],["Girona",6],["Granada",7],["Guadalajara",3],["Huelva",5],["Huesca",3],["Jaén",5],["La Rioja",4],["Las Palmas",8],["León",4],["Lleida",4],["Lugo",4],["Madrid",38],["Málaga",11],["Melilla",1],["Murcia",10],["Navarra",5],["Ourense",4],["Palencia",3],["Pontevedra",7],["Salamanca",4],["Santa Cruz de Tenerife",7],["Segovia",3],["Sevilla",12],["Soria",2],["Tarragona",6],["Teruel",3],["Toledo",6],["Valencia",16],["Valladolid",5],["Zamora",3],["Zaragoza",7]];
-const COLORS = ['#1d84ce','#e30613','#5ac035','#b5297a','#6b2a7a','#f2a900','#20b2a6','#a7c520','#76b3dd','#3f7a3a','#6e6e6e','#e6c300'];
-const SAMPLE = {prov: 'Salamanca', blank: 2100, parties: [['Partido A', 81000], ['Partido B', 62000], ['Partido C', 24000], ['Partido D', 11500], ['Partido E', 5200]]};
-const KEY = 'e176-dhondt';
+const PROV = [["A Coruña","a-coruna",8],["Álava","alava",4],["Albacete","albacete",4],["Alicante","alicante",12],["Almería","almeria",6],["Asturias","asturias",7],["Ávila","avila",3],["Badajoz","badajoz",5],["Baleares","baleares",8],["Barcelona","barcelona",32],["Bizkaia","bizkaia",8],["Burgos","burgos",4],["Cáceres","caceres",4],["Cádiz","cadiz",8],["Cantabria","cantabria",5],["Castellón","castellon",5],["Ceuta","ceuta",1],["Ciudad Real","ciudad-real",5],["Córdoba","cordoba",6],["Cuenca","cuenca",3],["Gipuzkoa","gipuzkoa",6],["Girona","girona",6],["Granada","granada",7],["Guadalajara","guadalajara",3],["Huelva","huelva",5],["Huesca","huesca",3],["Jaén","jaen",5],["La Rioja","la-rioja",4],["Las Palmas","las-palmas",8],["León","leon",4],["Lleida","lleida",4],["Lugo","lugo",4],["Madrid","madrid",38],["Málaga","malaga",11],["Melilla","melilla",1],["Murcia","murcia",10],["Navarra","navarra",5],["Ourense","ourense",4],["Palencia","palencia",3],["Pontevedra","pontevedra",7],["Salamanca","salamanca",4],["Santa Cruz de Tenerife","santa-cruz-de-tenerife",7],["Segovia","segovia",3],["Sevilla","sevilla",12],["Soria","soria",2],["Tarragona","tarragona",6],["Teruel","teruel",3],["Toledo","toledo",6],["Valencia","valencia",16],["Valladolid","valladolid",5],["Zamora","zamora",3],["Zaragoza","zaragoza",7]];
+const PARTIES = [["PP","#1d84ce"],["PSOE","#e30613"],["Vox","#5ac035"],["Frente Amplio","#b5297a"],["Podemos","#6b2a7a"],["Sumar","#e51c55"],["ERC","#f2a900"],["Junts","#20b2a6"],["EH Bildu","#a7c520"],["PNV","#3f7a3a"],["BNG","#76b3dd"],["CC","#e6c300"],["UPN","#2a52be"],["SALF","#6e6e6e"]];
+const OTHER_COLORS = ['#8a6d3b','#5b7083','#9b4dca','#c2185b','#00838f'];
+const BASE = {label: 'Punto de partida: resultado nacional de 2023 (PP 33,05 %, PSOE 31,70 %, Vox 12,39 %, Sumar 12,31 %). Cámbialo como quieras o añade partidos regionales.', blank: 0.8, parties: [['PP', 33.05], ['PSOE', 31.7], ['Vox', 12.39], ['Sumar', 12.31]]};
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const nf = n => new Intl.NumberFormat('es-ES').format(n);
-const pf = n => new Intl.NumberFormat('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2}).format(n) + ' %';
+const okColor = c => /^#[0-9a-fA-F]{3,8}$/.test(c || '') ? c : '#888';
+const pf = (n, d = 2) => new Intl.NumberFormat('es-ES', {minimumFractionDigits: d, maximumFractionDigits: d}).format(n);
+const parseNum = v => { const n = parseFloat(String(v).replace(',', '.')); return isFinite(n) ? n : 0; };
+let provData = {};
 
-$('prov').innerHTML = PROV.map(([n, s]) => '<option value="' + esc(n) + '">' + esc(n) + ' (' + s + ')</option>').join('') + '<option value="">Otra (escaños a mano)</option>';
+$('prov').innerHTML = PROV.map(([n, s, k]) => '<option value="' + s + '">' + esc(n) + ' (' + k + ' escaños)</option>').join('') + '<option value="">Otra (escaños a mano)</option>';
 
-function prow(name, votes) {
-  const d = document.createElement('div'); d.className = 'prow';
-  d.innerHTML = '<div><label>Partido</label><input class="pn" maxlength="40"></div><div><label>Votos</label><input class="pv" type="number" min="0" inputmode="numeric"></div><button type="button" class="x" aria-label="Quitar partido">×</button>';
-  d.querySelector('.pn').value = name || ''; d.querySelector('.pv').value = votes ?? '';
+function rowHtml() {
+  return '<select class="pp" aria-label="Partido">' + PARTIES.map(([n]) => '<option>' + esc(n) + '</option>').join('') + '<option value="__otro">Otro…</option></select>' +
+    '<input class="rng" type="range" min="0" max="60" step="0.1" aria-label="Porcentaje">' +
+    '<input class="pv" type="number" min="0" max="100" step="0.1" inputmode="decimal" aria-label="Porcentaje de voto">' +
+    '<button type="button" class="x" aria-label="Quitar partido">×</button>' +
+    '<input class="other" maxlength="30" placeholder="Nombre del partido" aria-label="Nombre del partido">';
+}
+function addRow(name, pct) {
+  const d = document.createElement('div'); d.className = 'prow'; d.innerHTML = rowHtml();
+  const known = PARTIES.some(p => p[0] === name);
+  d.querySelector('.pp').value = known ? name : (name ? '__otro' : PARTIES[0][0]);
+  if (!known && name) { d.classList.add('is-other'); d.querySelector('.other').value = name; }
+  d.querySelector('.pv').value = pct ?? '';
+  d.querySelector('.rng').value = pct ?? 0;
   $('plist').appendChild(d);
 }
 
-function load() {
-  let st = null; try { st = JSON.parse(localStorage.getItem(KEY)); } catch (e) {}
-  const s = st && Array.isArray(st.parties) ? st : SAMPLE;
-  $('prov').value = s.prov ?? 'Salamanca';
-  $('seats').value = s.seats || (PROV.find(p => p[0] === $('prov').value) || [0, 4])[1];
-  $('blank').value = s.blank ?? 0;
-  s.parties.forEach(([n, v]) => prow(n, v));
-  $('sample-note').hidden = s !== SAMPLE;
+function slugFromName(n) { const p = PROV.find(x => x[0] === n); return p ? p[1] : ''; }
+function currentProv() { return PROV.find(p => p[1] === $('prov').value); }
+
+function loadDefaults() {
+  $('plist').innerHTML = '';
+  const pr = currentProv(), real = pr && provData[pr[1]];
+  if (real && real.parties && real.parties.length) {
+    real.parties.filter(p => p.pct != null).forEach(p => addRow(p.name, +p.pct));
+    $('blank').value = real.blank != null ? real.blank : 0.8;
+    $('origin').textContent = 'Datos de partida: resultados del 29N en ' + pr[0] + (real.status === 'final' ? '' : ' (escrutinio provisional)') + '. Cámbialos para simular otros escenarios.';
+  } else {
+    BASE.parties.forEach(([n, v]) => addRow(n, v));
+    $('blank').value = BASE.blank;
+    $('origin').textContent = BASE.label;
+  }
 }
 
 function read() {
-  return {prov: $('prov').value, seats: Math.max(1, Math.min(400, parseInt($('seats').value) || 1)), blank: Math.max(0, parseInt($('blank').value) || 0),
-    parties: [...document.querySelectorAll('.prow')].map(r => [r.querySelector('.pn').value.trim(), Math.max(0, parseInt(r.querySelector('.pv').value) || 0)])};
+  return [...document.querySelectorAll('.prow')].map((r, i) => {
+    const sel = r.querySelector('.pp').value;
+    const name = sel === '__otro' ? (r.querySelector('.other').value.trim() || 'Otro partido ' + (i + 1)) : sel;
+    const known = PARTIES.find(p => p[0] === name);
+    return {n: name, v: Math.max(0, parseNum(r.querySelector('.pv').value)), c: known ? known[1] : OTHER_COLORS[i % OTHER_COLORS.length], s: 0};
+  });
 }
 
 function calc() {
-  const st = read();
-  try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {}
-  const ps = st.parties.map(([n, v], i) => ({n: n || 'Partido ' + (i + 1), v, c: COLORS[i % COLORS.length], s: 0}));
-  const valid = ps.reduce((a, p) => a + p.v, 0) + st.blank;
-  const thr = valid * 0.03;
+  const seats = Math.max(1, Math.min(400, parseInt($('seats').value) || 1));
+  const blank = Math.max(0, parseNum($('blank').value));
+  const ps = read();
+  const total = ps.reduce((a, p) => a + p.v, 0) + blank;
+  const s = $('sum');
+  if (total > 100.05) { s.className = 'sum bad'; s.textContent = 'Los porcentajes suman ' + pf(total, 1) + ' %, más de 100. Revísalos.'; }
+  else { s.className = 'sum mute'; s.textContent = 'Suman ' + pf(total, 1) + ' % (con el voto en blanco). El ' + pf(Math.max(0, 100 - total), 1) + ' % restante se considera voto a otros partidos.'; }
+  const thr = 3;
   const ok = ps.filter(p => p.v > 0 && p.v >= thr);
   const qs = [];
-  ok.forEach(p => { for (let d = 1; d <= st.seats; d++) qs.push({p, d, q: p.v / d}); });
+  ok.forEach(p => { for (let d = 1; d <= seats; d++) qs.push({p, d, q: p.v / d}); });
   qs.sort((a, b) => b.q - a.q || b.p.v - a.p.v);
-  const won = qs.slice(0, st.seats); won.forEach(x => x.p.s++);
+  const won = qs.slice(0, seats); won.forEach(x => x.p.s++);
   const winSet = new Set(won.map(x => x.p.n + '|' + x.d));
   const out = ps.slice().sort((a, b) => b.s - a.s || b.v - a.v);
+  const pr = currentProv();
 
-  $('big').innerHTML = '<div><b>' + nf(valid) + '</b><span>votos válidos</span></div><div><b>' + nf(Math.ceil(thr)) + '</b><span>umbral del 3 %</span></div><div><b>' + st.seats + '</b><span>escaños</span></div>';
-  $('bar').innerHTML = valid ? out.filter(p => p.s).map(p => '<i title="' + esc(p.n) + ': ' + p.s + '" style="width:' + (p.s / st.seats * 100) + '%;background:' + p.c + '"></i>').join('') : '';
-  $('res').innerHTML = '<thead><tr><th>Partido</th><th class="r">Votos</th><th class="r">%</th><th class="r">Escaños</th></tr></thead><tbody>' +
-    out.map(p => '<tr><td><i class="sw" style="background:' + p.c + '"></i> ' + esc(p.n) + (p.v < thr && p.v > 0 ? ' <span class="small mute">(no llega al 3 %)</span>' : '') + '</td><td class="r">' + nf(p.v) + '</td><td class="r">' + (valid ? pf(p.v / valid * 100) : '—') + '</td><td class="r"><b>' + p.s + '</b></td></tr>').join('') + '</tbody>';
+  $('big').innerHTML = '<div><b>' + seats + '</b><span>escaños' + (pr ? ' en ' + esc(pr[0]) : '') + '</span></div><div><b>3 %</b><span>mínimo para entrar</span></div><div><b>' + pf(100 / (seats + 1), 1) + ' %</b><span>asegura un escaño (aprox.)</span></div>';
+  $('bar').innerHTML = out.filter(p => p.s).map(p => '<i title="' + esc(p.n) + ': ' + p.s + '" style="width:' + (p.s / seats * 100) + '%;background:' + okColor(p.c) + '"></i>').join('');
+  $('res').innerHTML = '<thead><tr><th>Partido</th><th class="r">% voto</th><th class="r">Escaños</th></tr></thead><tbody>' +
+    out.map(p => '<tr><td><i class="sw" style="background:' + okColor(p.c) + '"></i> ' + esc(p.n) + (p.v > 0 && p.v < thr ? ' <span class="small mute">(no llega al 3 %)</span>' : '') + '</td><td class="r">' + pf(p.v) + ' %</td><td class="r"><b>' + p.s + '</b></td></tr>').join('') + '</tbody>';
 
-  const last = won[won.length - 1], next = qs[st.seats];
+  const last = won[won.length - 1], next = qs[seats];
   if (last && next) {
-    const need = Math.floor(last.q * (next.p.s + 1)) + 1 - next.p.v;
-    $('last').innerHTML = 'El último escaño fue para <strong>' + esc(last.p.n) + '</strong>. A <strong>' + esc(next.p.n) + '</strong> le habrían bastado unos <strong>' + nf(Math.max(1, need)) + ' votos más</strong> para quitárselo.';
-  } else $('last').textContent = valid ? '' : 'Escribe los votos de al menos un partido.';
+    const need = last.q * (next.p.s + 1) - next.p.v;
+    $('last').innerHTML = 'El último escaño ha sido para <strong>' + esc(last.p.n) + '</strong>. A <strong>' + esc(next.p.n) + '</strong> le habría bastado con <strong>' + pf(Math.max(0.01, need)) + ' puntos más</strong> para quitárselo.';
+  } else if (!ok.length) $('last').textContent = 'Pon el porcentaje de al menos un partido (mínimo un 3 %).';
+  else $('last').textContent = 'Todos los partidos que superan el 3 % tienen escaño.';
 
-  const cols = Math.min(st.seats, 12);
-  $('qt').innerHTML = '<thead><tr><th>Partido</th>' + Array.from({length: cols}, (_, i) => '<th class="r">÷' + (i + 1) + '</th>').join('') + '</tr></thead><tbody>' +
-    ok.slice().sort((a, b) => b.v - a.v).map(p => '<tr><td>' + esc(p.n) + '</td>' + Array.from({length: cols}, (_, i) => '<td class="r' + (winSet.has(p.n + '|' + (i + 1)) ? ' win' : '') + '">' + nf(Math.round(p.v / (i + 1))) + '</td>').join('') + '</tr>').join('') + '</tbody>';
+  const cols = Math.min(seats, 10);
+  $('qt').innerHTML = '<thead><tr><th>Partido</th>' + Array.from({length: cols}, (_, i) => '<th class="r">÷ ' + (i + 1) + '</th>').join('') + '</tr></thead><tbody>' +
+    ok.slice().sort((a, b) => b.v - a.v).map(p => '<tr><td>' + esc(p.n) + '</td>' + Array.from({length: cols}, (_, i) => '<td class="r' + (winSet.has(p.n + '|' + (i + 1)) ? ' win' : '') + '">' + pf(p.v / (i + 1)) + '</td>').join('') + '</tr>').join('') +
+    (seats > cols ? '<tr><td colspan="' + (cols + 1) + '" class="small mute">Se muestran las primeras ' + cols + ' divisiones.</td></tr>' : '') + '</tbody>';
+
+  try { const q = new URLSearchParams(location.search); if ($('prov').value) q.set('prov', $('prov').value); else q.delete('prov'); history.replaceState(null, '', location.pathname + '?' + q.toString()); } catch (e) {}
 }
 
-$('prov').addEventListener('change', () => { const p = PROV.find(x => x[0] === $('prov').value); if (p) $('seats').value = p[1]; calc(); });
-$('f').addEventListener('input', e => { if (e.target.id === 'seats' && $('prov').value) { const p = PROV.find(x => x[0] === $('prov').value); if (p && +$('seats').value !== p[1]) $('prov').value = ''; } $('sample-note').hidden = true; calc(); });
+$('provs').innerHTML = '<thead><tr><th>Provincia</th><th class="r">Diputados</th><th class="r">Asegura un escaño</th><th></th></tr></thead><tbody>' +
+  PROV.map(([n, s, k]) => '<tr><td>' + esc(n) + '</td><td class="r">' + k + '</td><td class="r">' + (k === 1 ? 'ganar' : '≈ ' + pf(100 / (k + 1), 1) + ' %') + '</td><td class="r"><a href="?prov=' + s + '#f">Calcular</a></td></tr>').join('') + '</tbody>';
+
+function setProv(slug) {
+  const p = PROV.find(x => x[1] === slug);
+  $('prov').value = p ? slug : 'salamanca';
+  $('seats').value = (p || PROV.find(x => x[1] === 'salamanca'))[2];
+  $('seats').readOnly = true;
+}
+
+$('prov').addEventListener('change', () => {
+  const p = currentProv();
+  if (p) { $('seats').value = p[2]; $('seats').readOnly = true; if (provData[p[1]]) loadDefaults(); }
+  else { $('seats').readOnly = false; $('seats').focus(); }
+  calc();
+});
+$('f').addEventListener('input', e => {
+  const r = e.target.closest('.prow');
+  if (r && e.target.classList.contains('rng')) r.querySelector('.pv').value = e.target.value;
+  if (r && e.target.classList.contains('pv')) r.querySelector('.rng').value = Math.min(60, parseNum(e.target.value));
+  calc();
+});
+$('f').addEventListener('change', e => {
+  if (e.target.classList.contains('pp')) { const r = e.target.closest('.prow'); r.classList.toggle('is-other', e.target.value === '__otro'); if (e.target.value === '__otro') r.querySelector('.other').focus(); calc(); }
+});
 $('f').addEventListener('submit', e => e.preventDefault());
 $('plist').addEventListener('click', e => { if (e.target.classList.contains('x')) { e.target.closest('.prow').remove(); calc(); } });
-$('add').addEventListener('click', () => { prow('', ''); document.querySelector('.prow:last-child .pn').focus(); });
-$('clear').addEventListener('click', () => { $('plist').innerHTML = ''; $('blank').value = 0; prow('', ''); prow('', ''); $('sample-note').hidden = true; calc(); });
+$('add').addEventListener('click', () => { addRow('', ''); const last = document.querySelector('.prow:last-child'); last.querySelector('.pp').value = '__otro'; last.classList.add('is-other'); last.querySelector('.other').focus(); calc(); });
+$('load').addEventListener('click', () => { loadDefaults(); calc(); });
 
-load(); calc();
+const q = new URLSearchParams(location.search);
+setProv(q.get('prov') || 'salamanca');
+loadDefaults(); calc();
+
+fetch('/datos/provincias.json', {cache: 'no-cache'}).then(r => r.ok ? r.json() : null).then(d => {
+  if (!d || !d.provinces) return;
+  d.provinces.forEach(p => { if (p.results && p.results.parties && p.results.parties.length) provData[p.slug] = p.results; });
+  if (provData[$('prov').value]) { loadDefaults(); calc(); }
+}).catch(() => {});
 }
 </script>
 </body>
