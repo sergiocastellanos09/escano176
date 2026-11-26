@@ -10,11 +10,24 @@ h1{font-size:clamp(32px,4.4vw,48px)}h2{font-size:clamp(24px,2.8vw,30px);margin-t
 .wrap{max-width:1100px;margin:0 auto;padding:0 max(4vw,16px)}
 .mute{color:var(--mute)}.small{font-size:14px}
 header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
-.bar{display:flex;align-items:center;gap:20px;min-height:60px}
+/* Menú: en pantallas anchas los enlaces van en línea; en estrechas, botón «Menú» que despliega el panel */
+.bar{display:flex;align-items:center;gap:16px;min-height:60px}
+.main-nav{display:flex;gap:2px;flex:1;align-items:center}
+.main-nav a{flex:none;text-decoration:none;font-size:15px;padding:10px 12px;border-radius:6px;color:var(--mute);white-space:nowrap}
+.main-nav a:hover,.main-nav a[aria-current]{color:var(--ink);background:var(--soft)}
+.cta{flex:none;text-decoration:none;font-size:15px;font-weight:650;padding:9px 16px;border-radius:99px;background:var(--ink);color:var(--bg);white-space:nowrap;min-height:40px;display:inline-flex;align-items:center}
+.cta:hover{opacity:.88}
+.menu-btn{display:none;flex:none;font:inherit;font-size:15px;font-weight:650;min-height:40px;padding:0 14px;border-radius:99px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+@media(max-width:1024px){
+  .menu-btn{display:inline-flex;align-items:center;gap:6px}
+  .main-nav{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:8px max(4vw,16px) 16px;box-shadow:0 12px 24px -12px rgba(0,0,0,.25)}
+  .main-nav.open{display:flex}
+  .main-nav a{font-size:17px;padding:14px 8px;border-bottom:1px solid var(--line);border-radius:0;color:var(--ink)}
+  .main-nav a:last-child{border-bottom:0}
+  .bar .spacer{flex:1}
+}
+@media(max-width:400px){.cta{padding:9px 12px;font-size:14px}.brand{font-size:21px!important}}
 .brand{font-family:Newsreader,serif;font-weight:650;font-size:24px;text-decoration:none;white-space:nowrap}
-nav.scroll{display:flex;gap:4px;overflow-x:auto;flex:1;scrollbar-width:none}
-nav.scroll a{flex:none;text-decoration:none;font-size:15px;padding:10px 12px;border-radius:6px;color:var(--mute)}
-nav.scroll a:hover,nav.scroll a[aria-current]{color:var(--ink);background:var(--soft)}
 main{padding:28px 0 56px}
 .lead{font-size:18px;max-width:65ch;margin:12px 0 0}
 .panel{border:1px solid var(--line);border-radius:10px;padding:18px}

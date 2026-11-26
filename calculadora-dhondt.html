@@ -57,12 +57,20 @@ details p{margin:10px 0 0;font-size:16px}
 </style>
 </head>
 <body>
-<header><div class="wrap bar">
-  <a class="brand" href="/">Escaño <b>176</b></a>
-  <nav class="scroll" aria-label="Secciones">
-    <a href="/">Portada</a><a href="/pactometro.html">Pactómetro</a><a href="/calculadora-dhondt.html" aria-current="page">Calculadora d'Hondt</a><a href="/provincias.html">Provincias</a>
-  </nav>
-</div></header>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="/">Escaño <b>176</b></a>
+    <nav class="main-nav" id="main-nav" aria-label="Secciones">
+      <a href="/">Portada</a>
+      <a href="/#resultados">Resultados</a>
+      <a href="/calculadora-dhondt.html" aria-current="page">Calculadora d'Hondt</a>
+      <a href="/provincias.html">Provincias</a>
+    </nav>
+    <span class="spacer"></span>
+    <a class="cta" href="/pactometro.html">Pactómetro</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="main-nav">Menú</button>
+  </div>
+</header>
 
 <main class="wrap">
   <h1>Calculadora d'Hondt: ¿cuántos diputados saca cada partido en tu provincia?</h1>
@@ -277,6 +285,13 @@ fetch('/datos/provincias.json', {cache: 'no-cache'}).then(r => r.ok ? r.json() :
   if (provData[$('prov').value]) { loadDefaults(); calc(); }
 }).catch(() => {});
 }
+</script>
+<script>
+{const b=document.getElementById('menu-btn'),n=document.getElementById('main-nav');
+if(b&&n){const set=o=>{n.classList.toggle('open',o);b.setAttribute('aria-expanded',o);b.textContent=o?'Cerrar':'Menú'};
+b.addEventListener('click',()=>set(!n.classList.contains('open')));
+n.addEventListener('click',e=>{if(e.target.closest('a'))set(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')set(false)});}}
 </script>
 </body>
 </html>

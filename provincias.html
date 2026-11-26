@@ -20,17 +20,32 @@
 <style>.bar2{display:flex;height:22px;border-radius:6px;overflow:hidden;margin:16px 0;background:var(--soft)}.bar2 i{display:block;height:100%}.stats{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}.stats div{background:var(--soft);border-radius:8px;padding:10px 14px}.stats b{display:block;font-family:Newsreader,serif;font-size:26px;line-height:1.1}.stats span{font-size:13px;color:var(--mute)}</style>
 </head>
 <body>
-<header><div class="wrap bar">
-  <a class="brand" href="/">Escaño <b>176</b></a>
-  <nav class="scroll" aria-label="Secciones">
-    <a href="/">Portada</a><a href="/pactometro.html">Pactómetro</a><a href="/calculadora-dhondt.html">Calculadora d'Hondt</a><a href="/provincias.html" aria-current="page">Provincias</a>
-  </nav>
-</div></header>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="/">Escaño <b>176</b></a>
+    <nav class="main-nav" id="main-nav" aria-label="Secciones">
+      <a href="/">Portada</a>
+      <a href="/#resultados">Resultados</a>
+      <a href="/calculadora-dhondt.html">Calculadora d'Hondt</a>
+      <a href="/provincias.html" aria-current="page">Provincias</a>
+    </nav>
+    <span class="spacer"></span>
+    <a class="cta" href="/pactometro.html">Pactómetro</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="main-nav">Menú</button>
+  </div>
+</header>
 <main class="wrap">
 <h1>Escaños por provincia</h1><p class="lead">Cuántos diputados elige cada circunscripción en las elecciones generales del 29 de noviembre de 2026, según el decreto de convocatoria. Tras el escrutinio, cada provincia tendrá aquí su página de resultados.</p><p class="small mute">Madrid gana un diputado respecto a 2023 y Cádiz pierde uno. Cada provincia elige al menos dos; Ceuta y Melilla, uno cada una.</p><div class="scroll-x"><table><thead><tr><th>Circunscripción</th><th>Comunidad</th><th class="r">Escaños</th><th class="r">Vs. 2023</th></tr></thead><tbody><tr><td>A Coruña</td><td>Galicia</td><td class="r"><b>8</b></td><td class="r">=</td></tr><tr><td>Albacete</td><td>Castilla-La Mancha</td><td class="r"><b>4</b></td><td class="r">=</td></tr><tr><td>Alicante</td><td>Comunidad Valenciana</td><td class="r"><b>12</b></td><td class="r">=</td></tr><tr><td>Almería</td><td>Andalucía</td><td class="r"><b>6</b></td><td class="r">=</td></tr><tr><td>Asturias</td><td>Asturias</td><td class="r"><b>7</b></td><td class="r">=</td></tr><tr><td>Badajoz</td><td>Extremadura</td><td class="r"><b>5</b></td><td class="r">=</td></tr><tr><td>Baleares</td><td>Illes Balears</td><td class="r"><b>8</b></td><td class="r">=</td></tr><tr><td>Barcelona</td><td>Cataluña</td><td class="r"><b>32</b></td><td class="r">=</td></tr><tr><td>Bizkaia</td><td>País Vasco</td><td class="r"><b>8</b></td><td class="r">=</td></tr><tr><td>Burgos</td><td>Castilla y León</td><td class="r"><b>4</b></td><td class="r">=</td></tr><tr><td>Cantabria</td><td>Cantabria</td><td class="r"><b>5</b></td><td class="r">=</td></tr><tr><td>Castellón</td><td>Comunidad Valenciana</td><td class="r"><b>5</b></td><td class="r">=</td></tr><tr><td>Ceuta</td><td>Ceuta</td><td class="r"><b>1</b></td><td class="r">=</td></tr><tr><td>Ciudad Real</td><td>Castilla-La Mancha</td><td class="r"><b>5</b></td><td class="r">=</td></tr><tr><td>Cuenca</td><td>Castilla-La Mancha</td><td class="r"><b>3</b></td><td class="r">=</td></tr><tr><td>Cáceres</td><td>Extremadura</td><td class="r"><b>4</b></td><td class="r">=</td></tr><tr><td>Cádiz</td><td>Andalucía</td><td class="r"><b>8</b></td><td class="r">-1</td></tr><tr><td>Córdoba</td><td>Andalucía</td><td class="r"><b>6</b></td><td class="r">=</td></tr><tr><td>Gipuzkoa</td><td>País Vasco</td><td class="r"><b>6</b></td><td class="r">=</td></tr><tr><td>Girona</td><td>Cataluña</td><td class="r"><b>6</b></td><td class="r">=</td></tr><tr><td>Granada</td><td>Andalucía</td><td class="r"><b>7</b></td><td class="r">=</td></tr><tr><td>Guadalajara</td><td>Castilla-La Mancha</td><td class="r"><b>3</b></td><td class="r">=</td></tr><tr><td>Huelva</td><td>Andalucía</td><td class="r"><b>5</b></td><td class="r">=</td></tr><tr><td>Huesca</td><td>Aragón</td><td class="r"><b>3</b></td><td class="r">=</td></tr><tr><td>Jaén</td><td>Andalucía</td><td class="r"><b>5</b></td><td class="r">=</td></tr><tr><td>La Rioja</td><td>La Rioja</td><td class="r"><b>4</b></td><td class="r">=</td></tr><tr><td>Las Palmas</td><td>Canarias</td><td class="r"><b>8</b></td><td class="r">=</td></tr><tr><td>León</td><td>Castilla y León</td><td class="r"><b>4</b></td><td class="r">=</td></tr><tr><td>Lleida</td><td>Cataluña</td><td class="r"><b>4</b></td><td class="r">=</td></tr><tr><td>Lugo</td><td>Galicia</td><td class="r"><b>4</b></td><td class="r">=</td></tr><tr><td>Madrid</td><td>Comunidad de Madrid</td><td class="r"><b>38</b></td><td class="r">+1</td></tr><tr><td>Melilla</td><td>Melilla</td><td class="r"><b>1</b></td><td class="r">=</td></tr><tr><td>Murcia</td><td>Región de Murcia</td><td class="r"><b>10</b></td><td class="r">=</td></tr><tr><td>Málaga</td><td>Andalucía</td><td class="r"><b>11</b></td><td class="r">=</td></tr><tr><td>Navarra</td><td>Navarra</td><td class="r"><b>5</b></td><td class="r">=</td></tr><tr><td>Ourense</td><td>Galicia</td><td class="r"><b>4</b></td><td class="r">=</td></tr><tr><td>Palencia</td><td>Castilla y León</td><td class="r"><b>3</b></td><td class="r">=</td></tr><tr><td>Pontevedra</td><td>Galicia</td><td class="r"><b>7</b></td><td class="r">=</td></tr><tr><td>Salamanca</td><td>Castilla y León</td><td class="r"><b>4</b></td><td class="r">=</td></tr><tr><td>Santa Cruz de Tenerife</td><td>Canarias</td><td class="r"><b>7</b></td><td class="r">=</td></tr><tr><td>Segovia</td><td>Castilla y León</td><td class="r"><b>3</b></td><td class="r">=</td></tr><tr><td>Sevilla</td><td>Andalucía</td><td class="r"><b>12</b></td><td class="r">=</td></tr><tr><td>Soria</td><td>Castilla y León</td><td class="r"><b>2</b></td><td class="r">=</td></tr><tr><td>Tarragona</td><td>Cataluña</td><td class="r"><b>6</b></td><td class="r">=</td></tr><tr><td>Teruel</td><td>Aragón</td><td class="r"><b>3</b></td><td class="r">=</td></tr><tr><td>Toledo</td><td>Castilla-La Mancha</td><td class="r"><b>6</b></td><td class="r">=</td></tr><tr><td>Valencia</td><td>Comunidad Valenciana</td><td class="r"><b>16</b></td><td class="r">=</td></tr><tr><td>Valladolid</td><td>Castilla y León</td><td class="r"><b>5</b></td><td class="r">=</td></tr><tr><td>Zamora</td><td>Castilla y León</td><td class="r"><b>3</b></td><td class="r">=</td></tr><tr><td>Zaragoza</td><td>Aragón</td><td class="r"><b>7</b></td><td class="r">=</td></tr><tr><td>Álava</td><td>País Vasco</td><td class="r"><b>4</b></td><td class="r">=</td></tr><tr><td>Ávila</td><td>Castilla y León</td><td class="r"><b>3</b></td><td class="r">=</td></tr></tbody></table></div><p>Con estos escaños puedes simular el reparto de cualquier provincia en la <a href="/calculadora-dhondt.html">calculadora d'Hondt</a>.</p></main>
 <footer><div class="wrap cols">
   <span>Escaño 176 · Información independiente y no partidista</span>
   <a href="/aviso-legal.html">Aviso legal</a><a href="/privacidad.html">Privacidad y cookies</a>
 </div></footer>
+<script>
+{const b=document.getElementById('menu-btn'),n=document.getElementById('main-nav');
+if(b&&n){const set=o=>{n.classList.toggle('open',o);b.setAttribute('aria-expanded',o);b.textContent=o?'Cerrar':'Menú'};
+b.addEventListener('click',()=>set(!n.classList.contains('open')));
+n.addEventListener('click',e=>{if(e.target.closest('a'))set(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')set(false)});}}
+</script>
 </body>
 </html>

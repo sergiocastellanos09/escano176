@@ -104,12 +104,20 @@ HEAD = """<!DOCTYPE html>
 <style>.bar2{{display:flex;height:22px;border-radius:6px;overflow:hidden;margin:16px 0;background:var(--soft)}}.bar2 i{{display:block;height:100%}}.stats{{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}}.stats div{{background:var(--soft);border-radius:8px;padding:10px 14px}}.stats b{{display:block;font-family:Newsreader,serif;font-size:26px;line-height:1.1}}.stats span{{font-size:13px;color:var(--mute)}}</style>
 </head>
 <body>
-<header><div class="wrap bar">
-  <a class="brand" href="/">Escaño <b>176</b></a>
-  <nav class="scroll" aria-label="Secciones">
-    <a href="/">Portada</a><a href="/pactometro.html">Pactómetro</a><a href="/calculadora-dhondt.html">Calculadora d'Hondt</a><a href="/provincias.html"{cur}>Provincias</a>
-  </nav>
-</div></header>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="/">Escaño <b>176</b></a>
+    <nav class="main-nav" id="main-nav" aria-label="Secciones">
+      <a href="/">Portada</a>
+      <a href="/#resultados">Resultados</a>
+      <a href="/calculadora-dhondt.html">Calculadora d'Hondt</a>
+      <a href="/provincias.html"{cur}>Provincias</a>
+    </nav>
+    <span class="spacer"></span>
+    <a class="cta" href="/pactometro.html">Pactómetro</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="main-nav">Menú</button>
+  </div>
+</header>
 <main class="wrap">
 """
 
@@ -118,6 +126,13 @@ FOOT = """</main>
   <span>Escaño 176 · Información independiente y no partidista</span>
   <a href="/aviso-legal.html">Aviso legal</a><a href="/privacidad.html">Privacidad y cookies</a>
 </div></footer>
+<script>
+{const b=document.getElementById('menu-btn'),n=document.getElementById('main-nav');
+if(b&&n){const set=o=>{n.classList.toggle('open',o);b.setAttribute('aria-expanded',o);b.textContent=o?'Cerrar':'Menú'};
+b.addEventListener('click',()=>set(!n.classList.contains('open')));
+n.addEventListener('click',e=>{if(e.target.closest('a'))set(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')set(false)});}}
+</script>
 </body>
 </html>
 """

@@ -42,12 +42,8 @@ h1{font-size:clamp(32px,4.6vw,52px)}h2{font-size:clamp(26px,3vw,34px)}h3{font-si
 .band{padding:clamp(28px,4vw,56px) 0;border-top:1px solid var(--line)}
 .mute{color:var(--mute)}.small{font-size:14px}
 header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
-.bar{display:flex;align-items:center;gap:20px;min-height:60px}
 .brand{font-family:Newsreader,serif;font-weight:650;font-size:24px;text-decoration:none;white-space:nowrap}
 .brand b{font-variant-numeric:tabular-nums}
-nav.scroll{display:flex;gap:4px;overflow-x:auto;flex:1;scrollbar-width:none}
-nav.scroll a{flex:none;text-decoration:none;font-size:15px;padding:10px 12px;border-radius:6px;color:var(--mute)}
-nav.scroll a:hover{color:var(--ink);background:var(--soft)}
 .status{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:650;white-space:nowrap}
 .dot{width:9px;height:9px;border-radius:50%;background:var(--live)}
 .dot.on{animation:pulse 1.6s ease-in-out infinite}
@@ -122,6 +118,28 @@ footer{border-top:1px solid var(--line);padding:36px 0 48px;font-size:14px;color
 footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
 footer h3{font-size:17px;color:var(--ink);margin-bottom:8px}
 footer ul{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+/* Menú: en pantallas anchas los enlaces van en línea; en estrechas, botón «Menú» que despliega el panel */
+.bar{display:flex;align-items:center;gap:16px;min-height:60px}
+.main-nav{display:flex;gap:2px;flex:1;align-items:center}
+.main-nav a{flex:none;text-decoration:none;font-size:15px;padding:10px 12px;border-radius:6px;color:var(--mute);white-space:nowrap}
+.main-nav a:hover,.main-nav a[aria-current]{color:var(--ink);background:var(--soft)}
+.cta{flex:none;text-decoration:none;font-size:15px;font-weight:650;padding:9px 16px;border-radius:99px;background:var(--ink);color:var(--bg);white-space:nowrap;min-height:40px;display:inline-flex;align-items:center}
+.cta:hover{opacity:.88}
+.menu-btn{display:none;flex:none;font:inherit;font-size:15px;font-weight:650;min-height:40px;padding:0 14px;border-radius:99px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+@media(max-width:1240px){
+  .menu-btn{display:inline-flex;align-items:center;gap:6px}
+  .main-nav{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:8px max(4vw,16px) 16px;box-shadow:0 12px 24px -12px rgba(0,0,0,.25)}
+  .main-nav.open{display:flex}
+  .main-nav a{font-size:17px;padding:14px 8px;border-bottom:1px solid var(--line);border-radius:0;color:var(--ink)}
+  .main-nav a:last-child{border-bottom:0}
+  .bar .spacer{flex:1}
+}
+@media(max-width:400px){.cta{padding:9px 12px;font-size:14px}.brand{font-size:21px!important}}
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:8px 0 28px}
+.tool-card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:10px;padding:16px 18px;background:var(--bg)}
+.tool-card:hover{border-color:var(--ink)}
+.tool-card b{display:block;font-family:Newsreader,serif;font-size:21px;line-height:1.15}
+.tool-card span{display:block;font-size:15px;color:var(--mute);margin-top:4px}
 @media(max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}aside{position:static}.debate{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:760px){.hero{grid-template-columns:minmax(0,1fr)}.status .lbl{display:none}}
 @media(max-width:600px){.item{grid-template-columns:minmax(0,1fr);gap:4px}.cal-row{grid-template-columns:minmax(0,1fr);gap:2px}.barcell{display:none}table{font-size:14px}.facts{grid-template-columns:1fr 1fr}}
@@ -133,19 +151,19 @@ footer ul{list-style:none;padding:0;margin:0;display:grid;gap:6px}
 
 <header>
   <div class="wrap bar">
-    <a class="brand" href="#inicio">Escaño <b>176</b></a>
-    <nav class="scroll" aria-label="Secciones">
-      <a href="#actualidad">Actualidad</a>
-      <a href="#debate">Debate</a>
-      <a href="#candidatos">Candidatos</a>
-      <a href="#calendario">Calendario</a>
-      <a href="#resultados">Resultados</a>
-      <a href="#claves">Qué pasa después</a>
-      <a href="/pactometro.html">Pactómetro</a>
+    <a class="brand" href="/">Escaño <b>176</b></a>
+    <nav class="main-nav" id="main-nav" aria-label="Secciones">
+      <a href="/#actualidad">Actualidad</a>
+      <a href="/#resultados">Resultados</a>
+      <a href="/#candidatos">Candidatos</a>
+      <a href="/#calendario">Calendario</a>
       <a href="/calculadora-dhondt.html">Calculadora d'Hondt</a>
       <a href="/provincias.html">Provincias</a>
     </nav>
+    <span class="spacer"></span>
     <span class="status" id="status"><span class="dot"></span><span class="lbl">Campaña</span></span>
+    <a class="cta" href="/pactometro.html">Pactómetro</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="main-nav">Menú</button>
   </div>
 </header>
 
@@ -168,6 +186,11 @@ footer ul{list-style:none;padding:0;margin:0;display:grid;gap:6px}
     </section>
 
     <div class="notice" id="notice" hidden></div>
+    <div class="tools" style="margin-top:20px">
+      <a class="tool-card" href="/pactometro.html"><b>Pactómetro</b><span>Elige quién vota sí, no o se abstiene y mira si alguien llega a 176.</span></a>
+      <a class="tool-card" href="/calculadora-dhondt.html"><b>Calculadora d'Hondt</b><span>¿Cuántos diputados saca cada partido en tu provincia? Pon porcentajes y lo ves.</span></a>
+      <a class="tool-card" href="/provincias.html"><b>Escaños por provincia</b><span>Cuántos diputados elige cada una de las 52 circunscripciones.</span></a>
+    </div>
   </div>
 
   <section class="band" id="actualidad" style="border-top:0">
@@ -552,6 +575,13 @@ if (cs) cs.addEventListener('click', e => {
 renderHead(); renderStatus(); renderHemi(); renderNews(); renderSide(); renderSections(); renderResults();
 const tick = setInterval(renderStatus, 30000);
 }
+</script>
+<script>
+{const b=document.getElementById('menu-btn'),n=document.getElementById('main-nav');
+if(b&&n){const set=o=>{n.classList.toggle('open',o);b.setAttribute('aria-expanded',o);b.textContent=o?'Cerrar':'Menú'};
+b.addEventListener('click',()=>set(!n.classList.contains('open')));
+n.addEventListener('click',e=>{if(e.target.closest('a'))set(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')set(false)});}}
 </script>
 </body>
 </html>
