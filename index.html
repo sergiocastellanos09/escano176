@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Escaño 176 · Elecciones 29N</title>
+<meta name="description" content="Elecciones generales del 29 de noviembre de 2026: actualidad, candidatos, calendario, resultados y claves para formar Gobierno.">
+<link rel="canonical" href="https://escano176.es/">
+<meta property="og:title" content="Escaño 176 · Elecciones generales 29N">
+<meta property="og:description" content="Actualidad, candidatos, calendario y resultados de las elecciones generales del 29 de noviembre de 2026.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://escano176.es/">
+<meta property="og:locale" content="es_ES">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M3 26a13 13 0 0 1 26 0' fill='none' stroke='%2312141a' stroke-width='5'/%3E%3C/svg%3E">
+<!-- ADSENSE-HEAD: aquí irá el código de AdSense cuando haya ID de editor -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,650&family=Public+Sans:wght@400;500;650&display=swap" rel="stylesheet">
+<style>
+/*
+VOICE: mesa de gráficos de un buen diario; sobria, neutral, sin color partidista en la interfaz.
+IDEA: el hemiciclo del Congreso, 350 escaños y la línea de 176.
+PICTURE: hemiciclo grande en la portada; hoy el Congreso de 2023, la noche del 29N el escrutinio.
+COLOUR and TYPE: papel blanco y tinta; el color solo lo ponen los partidos. Newsreader + Public Sans.
+LAYOUT: cabecera, portada (titular + hemiciclo), noticias con barra lateral, bandas de secciones, pie.
+*/
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#111318);--ink:light-dark(#12141a,#eceef2);--mute:light-dark(#5d6370,#9aa1ad);--line:light-dark(#e3e5ea,#262a33);--soft:light-dark(#f4f5f7,#181b21);--live:light-dark(#c8102e,#ff5a6e)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Public Sans",system-ui,sans-serif;overflow-x:clip}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+h1,h2,h3{font-family:Newsreader,Georgia,serif;font-weight:650;line-height:1.08;text-wrap:balance;margin:0}
+h1{font-size:clamp(32px,4.6vw,52px)}h2{font-size:clamp(26px,3vw,34px)}h3{font-size:20px;line-height:1.2}
+.wrap{max-width:1240px;margin:0 auto;padding:0 max(4vw,16px)}
+.band{padding:clamp(28px,4vw,56px) 0;border-top:1px solid var(--line)}
+.mute{color:var(--mute)}.small{font-size:14px}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:20px;min-height:60px}
+.brand{font-family:Newsreader,serif;font-weight:650;font-size:24px;text-decoration:none;white-space:nowrap}
+.brand b{font-variant-numeric:tabular-nums}
+nav.scroll{display:flex;gap:4px;overflow-x:auto;flex:1;scrollbar-width:none}
+nav.scroll a{flex:none;text-decoration:none;font-size:15px;padding:10px 12px;border-radius:6px;color:var(--mute)}
+nav.scroll a:hover{color:var(--ink);background:var(--soft)}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:650;white-space:nowrap}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--live)}
+.dot.on{animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.3}}
+.ad{margin:20px auto;text-align:center}
+.ad-label{font-size:12px;color:var(--mute);margin-bottom:4px}
+.ad-inner{display:grid;place-items:center;background:var(--soft);border:1px dashed var(--line);color:var(--mute);font-size:13px;margin:0 auto}
+.ad[data-slot=top] .ad-inner{max-width:728px;min-height:90px}
+.ad[data-slot=side] .ad-inner{width:300px;max-width:100%;min-height:250px}
+.ad[data-slot=feed] .ad-inner,.ad[data-slot=bottom] .ad-inner{max-width:970px;min-height:120px}
+.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(24px,4vw,56px);align-items:center;padding:clamp(20px,3vw,40px) 0 clamp(28px,4vw,48px)}
+.kicker{font-size:14px;font-weight:650;margin-bottom:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.dek{font-size:18px;margin:16px 0 0;max-width:60ch}
+.count{display:flex;gap:18px;margin-top:24px;flex-wrap:wrap;align-items:flex-end}
+.count .n{font-family:Newsreader,serif;font-size:clamp(34px,4vw,46px);font-weight:650;line-height:1;font-variant-numeric:tabular-nums}
+.count .u{font-size:13px;color:var(--mute)}
+.count .what{font-size:14px;color:var(--mute);flex-basis:100%;margin:0}
+.hemi{width:100%}
+.hemi svg{display:block;width:100%;height:auto}
+.hemi-cap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px;margin-top:6px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:12px;font-size:14px}
+.legend span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.sw{width:11px;height:11px;border-radius:50%;flex:none}
+.notice{background:var(--soft);border-left:3px solid var(--ink);padding:14px 18px;font-size:15px;border-radius:0 6px 6px 0}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:clamp(24px,4vw,48px);align-items:start}
+.news{display:grid;gap:0}
+.item{padding:20px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:92px minmax(0,1fr);gap:16px}
+.item:first-child{padding-top:4px}
+.item time{font-size:13px;color:var(--mute);white-space:nowrap}
+.tag{display:inline-block;font-size:12px;font-weight:650;border:1px solid var(--line);border-radius:99px;padding:1px 9px;margin-bottom:6px}
+.item p{margin:6px 0 4px}
+.src{font-size:13px;color:var(--mute)}
+aside{position:sticky;top:84px;display:grid;gap:24px}
+.box{border:1px solid var(--line);border-radius:8px;padding:18px}
+.box h3{margin-bottom:10px}
+.agenda{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.agenda li{display:grid;grid-template-columns:64px minmax(0,1fr);gap:10px;font-size:15px}
+.agenda .t{font-weight:650;font-variant-numeric:tabular-nums;white-space:nowrap}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.facts b{display:block;font-family:Newsreader,serif;font-size:24px;line-height:1.1;font-variant-numeric:tabular-nums}
+.facts span{font-size:13px;color:var(--mute)}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.cand{border:1px solid var(--line);border-radius:8px;padding:18px;border-top:4px solid var(--c)}
+.cand .p{font-size:14px;font-weight:650}
+.cand p{margin:8px 0 0;font-size:15px}
+.debate{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:start}
+.blocks{counter-reset:b;list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.blocks li{display:flex;gap:12px;align-items:baseline;padding:10px 14px;background:var(--soft);border-radius:6px}
+.blocks li::before{counter-increment:b;content:counter(b);font-family:Newsreader,serif;font-weight:650;font-size:20px;min-width:16px}
+.cal{display:grid;gap:0}
+.cal-row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:20px;padding:14px 0;border-bottom:1px solid var(--line)}
+.cal-row .d{font-family:Newsreader,serif;font-weight:650;font-size:19px;white-space:nowrap}
+.cal-row.past{color:var(--mute)}
+.cal-row.next .d::after{content:"Próximo";font-family:"Public Sans",sans-serif;font-size:12px;font-weight:650;color:var(--bg);background:var(--ink);border-radius:99px;padding:2px 8px;margin-left:8px;vertical-align:middle}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:13px;color:var(--mute);font-weight:650}
+td.r,th.r{text-align:right;white-space:nowrap}
+.barcell{width:38%}
+.hbar{height:10px;border-radius:5px;background:var(--c)}
+.res-top{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:24px}
+.stat{background:var(--soft);border-radius:8px;padding:16px}
+.stat b{display:block;font-family:Newsreader,serif;font-size:clamp(26px,3vw,34px);line-height:1.1}
+.steps{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.steps li{border-top:2px solid var(--ink);padding-top:12px}
+.steps li::before{counter-increment:s;content:"Paso " counter(s);display:block;font-size:13px;font-weight:650;color:var(--mute);margin-bottom:6px}
+.steps p{margin:6px 0 0;font-size:15px}
+.analysis{max-width:70ch;font-size:17px}
+.analysis p{margin:0 0 14px}
+footer{border-top:1px solid var(--line);padding:36px 0 48px;font-size:14px;color:var(--mute)}
+footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
+footer h3{font-size:17px;color:var(--ink);margin-bottom:8px}
+footer ul{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+@media(max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}aside{position:static}.debate{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:760px){.hero{grid-template-columns:minmax(0,1fr)}.status .lbl{display:none}}
+@media(max-width:600px){.item{grid-template-columns:minmax(0,1fr);gap:4px}.cal-row{grid-template-columns:minmax(0,1fr);gap:2px}.barcell{display:none}table{font-size:14px}.facts{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+.seat.e{fill:var(--line)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#inicio">Escaño <b>176</b></a>
+    <nav class="scroll" aria-label="Secciones">
+      <a href="#actualidad">Actualidad</a>
+      <a href="#debate">Debate</a>
+      <a href="#candidatos">Candidatos</a>
+      <a href="#calendario">Calendario</a>
+      <a href="#resultados">Resultados</a>
+      <a href="#claves">Qué pasa después</a>
+    </nav>
+    <span class="status" id="status"><span class="dot"></span><span class="lbl">Campaña</span></span>
+  </div>
+</header>
+
+<main id="inicio">
+  <div class="wrap">
+    <div class="ad" data-slot="top"><div class="ad-label">Publicidad</div><div class="ad-inner">Espacio publicitario · 728 × 90</div></div>
+
+    <section class="hero">
+      <div>
+        <div class="kicker"><span>Elecciones generales · 29 de noviembre de 2026</span><span class="mute" id="updated"></span></div>
+        <h1 id="headline">Elecciones generales del 29N</h1>
+        <p class="dek" id="dek"></p>
+        <div class="count" id="count" aria-live="polite"></div>
+      </div>
+      <figure class="hemi" style="margin:0">
+        <svg id="hemi" viewBox="0 0 200 106" role="img" aria-labelledby="hemi-t"><title id="hemi-t">Reparto de escaños en el Congreso</title></svg>
+        <figcaption class="hemi-cap"><strong id="hemi-title"></strong><span class="mute" id="hemi-note"></span></figcaption>
+        <div class="legend" id="legend"></div>
+      </figure>
+    </section>
+
+    <div class="notice" id="notice" hidden></div>
+  </div>
+
+  <section class="band" id="actualidad" style="border-top:0">
+    <div class="wrap grid">
+      <div>
+        <div class="sec-head"><h2>Actualidad de la campaña</h2><span class="mute small">Lo último, de más reciente a más antiguo</span></div>
+        <div class="news" id="news"></div>
+      </div>
+      <aside>
+        <div class="box"><h3>Próximas citas</h3><ul class="agenda" id="agenda"></ul></div>
+        <div class="ad" data-slot="side" style="margin:0"><div class="ad-label">Publicidad</div><div class="ad-inner">Espacio publicitario · 300 × 250</div></div>
+        <div class="box"><h3>Datos clave</h3><div class="facts" id="facts"></div></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="band" id="contexto">
+    <div class="wrap">
+      <div class="sec-head"><h2>Cómo hemos llegado aquí</h2></div>
+      <div class="analysis" id="analysis"></div>
+    </div>
+  </section>
+
+  <section class="band" id="debate">
+    <div class="wrap debate" id="debate-body"></div>
+  </section>
+
+  <div class="wrap"><div class="ad" data-slot="feed"><div class="ad-label">Publicidad</div><div class="ad-inner">Espacio publicitario</div></div></div>
+
+  <section class="band" id="candidatos">
+    <div class="wrap">
+      <div class="sec-head"><h2>Quién se presenta</h2><span class="mute small">Principales candidaturas, por orden alfabético de partido</span></div>
+      <div class="cards" id="cands"></div>
+      <p class="mute small" style="margin-top:16px">Concurren más candidaturas en cada provincia. Las listas completas están publicadas en el BOE.</p>
+    </div>
+  </section>
+
+  <section class="band" id="calendario">
+    <div class="wrap">
+      <div class="sec-head"><h2>Calendario electoral</h2><span class="mute small">Hora peninsular. Fechas oficiales del Ministerio del Interior.</span></div>
+      <div class="cal" id="cal"></div>
+    </div>
+  </section>
+
+  <section class="band" id="resultados">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="res-title">Resultados</h2><span class="mute small" id="res-sub"></span></div>
+      <div class="res-top" id="res-stats"></div>
+      <div class="scroll"><table id="res-table"></table></div>
+      <p class="mute small" id="res-note" style="margin-top:12px"></p>
+    </div>
+  </section>
+
+  <section class="band" id="claves">
+    <div class="wrap">
+      <div class="sec-head"><h2>Después del 29N: cómo se forma Gobierno</h2></div>
+      <ol class="steps" id="steps"></ol>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="ad" data-slot="bottom"><div class="ad-label">Publicidad</div><div class="ad-inner">Espacio publicitario</div></div></div>
+</main>
+
+<footer>
+  <div class="wrap cols">
+    <div>
+      <h3>Escaño 176</h3>
+      <p style="margin:0">Cobertura independiente y no partidista de las elecciones generales del 29N. No está vinculada a ningún partido, candidatura ni administración.</p>
+    </div>
+    <div>
+      <h3>Cómo se hace</h3>
+      <p style="margin:0">Las noticias y análisis se actualizan de forma automática, con ayuda de inteligencia artificial, a partir de fuentes públicas que se enlazan en cada pieza. Los resultados proceden del escrutinio oficial del Ministerio del Interior.</p>
+    </div>
+    <div>
+      <h3>Información oficial</h3>
+      <ul>
+        <li><a href="https://29neleccionesgenerales.es">Web oficial de las elecciones (Interior)</a></li>
+        <li><a href="https://www.ine.es/dyngs/Prensa/EG2026.htm">Censo electoral (INE)</a></li>
+        <li><a href="https://www.lamoncloa.gob.es/serviciosdeprensa/notasprensa/interior/paginas/guia-dudas-elecciones-generales-29n.aspx">Guía básica del proceso electoral</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Legal</h3>
+      <ul>
+        <li><a href="/aviso-legal.html">Aviso legal</a></li>
+        <li><a href="/privacidad.html">Privacidad y cookies</a></li>
+        <li><a href="#" id="cookie-settings">Configurar cookies</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script type="application/json" id="site-data">
+{
+  "updated": "2026-11-25T14:45:00+01:00",
+  "headline": "Cuatro días para el 29N: el debate a cuatro y la veda de sondeos marcan la recta final",
+  "dek": "España elige el domingo a los 350 diputados del Congreso en unas generales adelantadas. Tras una campaña centrada en vivienda, economía y corrupción, Sánchez, Feijóo, Abascal y Colau se miden el jueves en el último gran debate.",
+  "pollBan": true,
+  "pollBanText": "Del 24 al 28 de noviembre la ley prohíbe publicar o difundir encuestas electorales. Por eso esta web no muestra sondeos hasta el cierre de los colegios, el domingo a las 20:00.",
+  "notice": "",
+  "analysis": [
+    "Pedro Sánchez anunció el 5 de octubre la disolución de las Cortes y el adelanto de las elecciones, después de que el Congreso tumbara sus medidas contra la crisis de la vivienda. La legislatura salida de las urnas del 23 de julio de 2023 podía haberse alargado hasta 2027.",
+    "PSOE, PP y Vox repiten candidatos: Sánchez, Alberto Núñez Feijóo y Santiago Abascal. La gran novedad es Frente Amplio, la coalición de izquierdas que encabeza Ada Colau, mientras Podemos se presenta por su cuenta con Irene Montero y ha pactado con ERC en Cataluña.",
+    "La campaña empezó el 13 de noviembre y termina el viernes 27 a medianoche. La vivienda ha sido el eje de los debates, junto con la economía y la fiscalidad, la corrupción y la inmigración. En la recta final ha entrado también la propuesta de gravar las grandes fortunas.",
+    "Para gobernar con apoyo propio hacen falta 176 escaños. Si nadie llega, la clave estará en los pactos de investidura, que empezarán a negociarse en cuanto se conozca el escrutinio."
+  ],
+  "news": [
+    {"date":"2026-11-25","tag":"Debate","title":"Sánchez, Feijóo, Abascal y Colau, en el último gran debate este jueves","summary":"La Academia de Televisión organiza el jueves 26 a las 22:00 (21:00 en Canarias) el debate a cuatro, moderado por María Casado. Se emitirá en La 1, Antena 3, laSexta, Telecinco, Cuatro y varias autonómicas, y también en RTVE Play.","source":"Demócrata","url":"https://www.democrata.es/elecciones-generales-espana/debate-cuatro-29n-horario-donde-ver-candidatos/"},
+    {"date":"2026-11-25","tag":"Economía","title":"El impuesto a las grandes fortunas entra en la campaña","summary":"Frente Amplio propone un 3% anual sobre los patrimonios de más de 50 millones y el PSOE plantea gravar las fortunas de más de 100 millones, sin concretar el tipo. Según Hacienda, al menos 623 residentes fiscales superan esa cifra.","source":"Qué!","url":"https://www.que.es/2026/11/25/impuesto-ultrarricos-campana-29n/"},
+    {"date":"2026-11-25","tag":"Campaña","title":"Feijóo y Ayuso protagonizan un gran acto del PP en Madrid","summary":"El candidato popular y la presidenta de la Comunidad de Madrid celebran hoy un mitin conjunto en la capital, uno de los actos centrales del partido en la última semana de campaña.","source":"OKDIARIO","url":"https://okdiario.com/espana/ultima-hora-directo-actualidad-politica-espana-elecciones-generales-del-29-n-campana-electoral-hoy-vivo-8-21264308"},
+    {"date":"2026-11-25","tag":"Campaña","title":"Colau acusa a Sánchez de dar por hecha una mayoría de la derecha","summary":"La candidata de Frente Amplio reprocha al presidente que dé señales de asumir una posible victoria del bloque de la derecha y le pide que no tire la toalla en la recta final.","source":"El Español","url":"https://www.elespanol.com/espana/20261125/elecciones-generales-directo-resultados-encuestas-pedro-sanchez-ultima-hora-campana-electoral-pp-psoe-vox-frente-amplio-sondeos-partidos-voto-correo-2026/1003744471069_10.html"},
+    {"date":"2026-11-25","tag":"Entrevistas","title":"El youtuber Plex publica sus entrevistas con Feijóo y Sánchez","summary":"Las dos conversaciones, grabadas por separado, se estrenan hoy: la del candidato del PP a las 20:00 y la del candidato socialista a las 21:00.","source":"Infobae","url":"https://www.infobae.com/espana/2026/11/25/elecciones-generales-29-n-en-directo-recta-final-de-la-campana-electoral-y-ultima-hora-de-los-candidatos/"},
+    {"date":"2026-11-25","tag":"Sociedad","title":"La campaña coincide con el 25N","summary":"Los actos de los partidos se celebran hoy en el Día Internacional para la Eliminación de la Violencia contra la Mujer.","source":"Infobae","url":"https://www.infobae.com/espana/2026/11/25/elecciones-generales-29-n-en-directo-recta-final-de-la-campana-electoral-y-ultima-hora-de-los-candidatos/"},
+    {"date":"2026-11-24","tag":"Votar","title":"El voto por correo puede entregarse hasta el jueves a las 14:00","summary":"La Junta Electoral Central ha ampliado un día el plazo para depositar el voto por correo en las oficinas de Correos. Quien lo haya solicitado y aceptado ya no podrá votar en persona el domingo.","source":"La Moncloa","url":"https://www.lamoncloa.gob.es/serviciosdeprensa/notasprensa/interior/paginas/voto-por-correo-elecciones-generales-29n.aspx"},
+    {"date":"2026-11-24","tag":"Encuestas","title":"Empieza la prohibición de publicar sondeos","summary":"Desde el martes 24 y hasta el sábado 28 no pueden publicarse encuestas electorales. La veda termina con el cierre de los colegios el domingo.","source":"El Español","url":"https://www.elespanol.com/elecciones/generales/"},
+    {"date":"2026-11-23","tag":"Debate","title":"Debate a ocho en RTVE con los portavoces de los grupos","summary":"Representantes de los ocho grupos parlamentarios se enfrentaron durante hora y media en La 1, en un debate moderado por Xabier Fortes.","source":"Demócrata","url":"https://www.democrata.es/elecciones-generales-espana/debates-electorales-29n-cuando-son-donde-ver/"},
+    {"date":"2026-11-19","tag":"Debate","title":"Primer cara a cara entre Sánchez y Feijóo desde 2023","summary":"Los dos aspirantes con más opciones de presidir el Gobierno debatieron durante dos horas sobre vivienda, economía, corrupción e inmigración.","source":"Diari Més","url":"https://www.diarimes.com/es/actualidad/espana/261119/sanchez-feijoo-enfrentan-hoy-cara-cara-confrontar-programas-29n_243499.html"}
+  ],
+  "debate": {
+    "title": "El debate a cuatro, este jueves",
+    "when": "2026-11-26T22:00:00+01:00",
+    "text": "Es la última gran cita televisada antes de las urnas y la primera vez en esta campaña que los cuatro principales candidatos coinciden en el mismo plató. Lo organiza la Academia de Televisión y lo modera su presidenta, María Casado.",
+    "where": "La 1, Canal 24 Horas, Antena 3, laSexta, Telecinco, Cuatro, La Séptima, varias autonómicas, RTVE Play y RNE.",
+    "who": ["Pedro Sánchez (PSOE)","Alberto Núñez Feijóo (PP)","Santiago Abascal (Vox)","Ada Colau (Frente Amplio)"],
+    "blocks": ["Vivienda","Economía y fiscalidad","Política social y servicios públicos","Lucha contra la corrupción y regeneración democrática","Inmigración y política exterior"]
+  },
+  "candidates": [
+    {"party":"ERC","name":"Gabriel Rufián","color":"#f2a900","text":"Repite al frente de Esquerra Republicana por Barcelona, con un acuerdo con Podemos en Cataluña."},
+    {"party":"Frente Amplio","name":"Ada Colau","color":"#b5297a","text":"Encabeza la nueva coalición de izquierdas. Es cabeza de lista por Barcelona; en Madrid la encabeza Emilio Delgado."},
+    {"party":"Junts","name":"Míriam Nogueras","color":"#20b2a6","text":"Repite como cabeza de lista de Junts per Catalunya por Barcelona."},
+    {"party":"Podemos","name":"Irene Montero","color":"#6b2a7a","text":"Exministra de Igualdad y eurodiputada. Encabeza la lista por Madrid; Podemos concurre en solitario en casi toda España."},
+    {"party":"PP","name":"Alberto Núñez Feijóo","color":"#1d84ce","text":"Presidente del Partido Popular. Fue el partido más votado en 2023, con 137 escaños."},
+    {"party":"PSOE","name":"Pedro Sánchez","color":"#e30613","text":"Presidente del Gobierno y secretario general del PSOE. Convocó el adelanto electoral el 5 de octubre."},
+    {"party":"Vox","name":"Santiago Abascal","color":"#5ac035","text":"Presidente de Vox. Concurre con el lema «Es sentido común»."}
+  ],
+  "agenda": [
+    {"when":"2026-11-25T20:00:00+01:00","text":"Entrevista de Plex a Feijóo"},
+    {"when":"2026-11-25T21:00:00+01:00","text":"Entrevista de Plex a Sánchez"},
+    {"when":"2026-11-26T14:00:00+01:00","text":"Fin del plazo para entregar el voto por correo"},
+    {"when":"2026-11-26T22:00:00+01:00","text":"Debate a cuatro en televisión"},
+    {"when":"2026-11-27T23:59:00+01:00","text":"Termina la campaña electoral"},
+    {"when":"2026-11-28T00:00:00+01:00","text":"Jornada de reflexión"},
+    {"when":"2026-11-29T09:00:00+01:00","text":"Abren los colegios electorales"},
+    {"when":"2026-11-29T20:00:00+01:00","text":"Cierre de colegios y primeros resultados"},
+    {"when":"2026-12-23T10:00:00+01:00","text":"Se constituyen el Congreso y el Senado"}
+  ],
+  "calendar": [
+    {"date":"2026-11-13","label":"13 nov","text":"Empieza la campaña electoral, a las 0:00."},
+    {"date":"2026-11-19","label":"19 nov","text":"Último día para solicitar el voto por correo."},
+    {"date":"2026-11-24","label":"24–28 nov","text":"Prohibición de publicar encuestas electorales."},
+    {"date":"2026-11-26","label":"26 nov","text":"Hasta las 14:00, último plazo para entregar el voto por correo en Correos."},
+    {"date":"2026-11-27","label":"27 nov","text":"La campaña termina a las 24:00."},
+    {"date":"2026-11-28","label":"28 nov","text":"Jornada de reflexión."},
+    {"date":"2026-11-29","label":"29 nov","text":"Votación de 9:00 a 20:00. Al cierre, Interior empieza a publicar el escrutinio provisional."},
+    {"date":"2026-12-23","label":"23 dic","text":"A las 10:00, sesiones constitutivas del Congreso y del Senado."}
+  ],
+  "facts": [
+    {"v":"38.728.356","l":"electores"},
+    {"v":"1.615.127","l":"votan por primera vez"},
+    {"v":"2.769.645","l":"electores en el extranjero"},
+    {"v":"350","l":"diputados en juego"},
+    {"v":"176","l":"escaños para la mayoría absoluta"},
+    {"v":"38","l":"diputados elige Madrid, la provincia que más"}
+  ],
+  "results": {
+    "status": "pending",
+    "label": "Congreso tras las elecciones de 2023",
+    "note": "Composición salida del 23J. La noche del 29N este gráfico mostrará el escrutinio provisional.",
+    "counted": null,
+    "turnout": null,
+    "turnoutPrev": null,
+    "updated": null,
+    "parties": [
+      {"name":"Sumar","seats":31,"prev":null,"pct":null,"color":"#e51c55"},
+      {"name":"ERC","seats":7,"prev":null,"pct":null,"color":"#f2a900"},
+      {"name":"EH Bildu","seats":6,"prev":null,"pct":null,"color":"#a7c520"},
+      {"name":"BNG","seats":1,"prev":null,"pct":null,"color":"#76b3dd"},
+      {"name":"PSOE","seats":121,"prev":null,"pct":null,"color":"#e30613"},
+      {"name":"PNV","seats":5,"prev":null,"pct":null,"color":"#3f7a3a"},
+      {"name":"Junts","seats":7,"prev":null,"pct":null,"color":"#20b2a6"},
+      {"name":"CC","seats":1,"prev":null,"pct":null,"color":"#e6c300"},
+      {"name":"UPN","seats":1,"prev":null,"pct":null,"color":"#2a52be"},
+      {"name":"PP","seats":137,"prev":null,"pct":null,"color":"#1d84ce"},
+      {"name":"Vox","seats":33,"prev":null,"pct":null,"color":"#5ac035"}
+    ],
+    "source": "Ministerio del Interior",
+    "sourceUrl": "https://29neleccionesgenerales.es"
+  },
+  "steps": [
+    {"t":"Escrutinio","p":"La noche electoral se conoce el escrutinio provisional. Días después, las juntas electorales hacen el recuento oficial y proclaman a los electos."},
+    {"t":"Nuevas Cortes","p":"El 23 de diciembre a las 10:00 se constituyen el Congreso y el Senado y eligen sus Mesas, empezando por la presidencia de cada Cámara."},
+    {"t":"Consultas del Rey","p":"El Rey se reúne con los representantes de los grupos y propone un candidato a la Presidencia del Gobierno."},
+    {"t":"Investidura","p":"El candidato necesita mayoría absoluta (176 votos) en la primera votación. Si no la logra, 48 horas después le basta con más síes que noes."},
+    {"t":"Plazo de dos meses","p":"Si pasados dos meses desde la primera votación nadie ha sido investido, las Cortes se disuelven y se repiten las elecciones."}
+  ]
+}
+</script>
+
+<script>
+{
+const D = JSON.parse(document.getElementById('site-data').textContent);
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const safeUrl = u => /^https:\/\//.test(u || '') ? esc(u) : '#';
+const TZ = 'Europe/Madrid';
+const fmt = (d, o) => new Intl.DateTimeFormat('es-ES', Object.assign({timeZone: TZ}, o)).format(d);
+const num = n => new Intl.NumberFormat('es-ES').format(n);
+const pct = n => n == null ? '—' : new Intl.NumberFormat('es-ES', {minimumFractionDigits: 1, maximumFractionDigits: 1}).format(n) + ' %';
+
+const T = {
+  campEnd: Date.parse('2026-11-28T00:00:00+01:00'),
+  open: Date.parse('2026-11-29T09:00:00+01:00'),
+  close: Date.parse('2026-11-29T20:00:00+01:00')
+};
+const R = D.results || {};
+
+function phase(now) {
+  if (R.status === 'final') return {k: 'final', l: 'Resultados'};
+  if (now >= T.close) return {k: 'count', l: R.counted >= 100 ? 'Escrutado al 100 %' : 'Escrutinio en directo', live: true};
+  if (now >= T.open) return {k: 'vote', l: 'Colegios abiertos', live: true};
+  if (now >= T.campEnd) return {k: 'reflex', l: 'Jornada de reflexión'};
+  return {k: 'camp', l: 'Campaña electoral'};
+}
+
+function renderStatus() {
+  const now = Date.now(), p = phase(now);
+  $('status').innerHTML = '<span class="dot' + (p.live ? ' on' : '') + '"></span><span class="lbl">' + esc(p.l) + '</span>';
+  let target = null, what = '';
+  if (now < T.open) { target = T.open; what = 'para que abran los colegios, el domingo a las 9:00'; }
+  else if (now < T.close) { target = T.close; what = 'para el cierre de los colegios, a las 20:00'; }
+  if (target) {
+    let s = Math.max(0, Math.floor((target - now) / 1000));
+    const parts = [[Math.floor(s / 86400), 'días'], [Math.floor(s % 86400 / 3600), 'horas'], [Math.floor(s % 3600 / 60), 'min']];
+    $('count').innerHTML = parts.map(([n, u]) => '<div><div class="n">' + n + '</div><div class="u">' + u + '</div></div>').join('') + '<p class="what">' + esc('Faltan ' + what) + '</p>';
+  } else {
+    const c = R.counted;
+    $('count').innerHTML = '<div><div class="n">' + (c == null ? '—' : pct(c)) + '</div><div class="u">escrutado</div></div><div><div class="n">' + pct(R.turnout) + '</div><div class="u">participación</div></div>';
+  }
+}
+
+function renderHead() {
+  $('headline').textContent = D.headline;
+  $('dek').textContent = D.dek;
+  const u = Date.parse(D.updated);
+  if (!isNaN(u)) $('updated').textContent = 'Actualizado ' + fmt(new Date(u), {day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'});
+  const msgs = [];
+  if (D.notice) msgs.push(D.notice);
+  if (D.pollBan && Date.now() < T.close) msgs.push(D.pollBanText);
+  if (msgs.length) { $('notice').hidden = false; $('notice').innerHTML = msgs.map(esc).join('<br>'); }
+}
+
+function seatLayout(N) {
+  const rows = 12, r0 = 0.4, radii = [];
+  for (let i = 0; i < rows; i++) radii.push(r0 + (1 - r0) * i / (rows - 1));
+  const sum = radii.reduce((a, b) => a + b, 0);
+  const counts = radii.map(r => Math.round(N * r / sum));
+  counts[rows - 1] += N - counts.reduce((a, b) => a + b, 0);
+  const pts = [];
+  radii.forEach((r, i) => {
+    const n = counts[i];
+    for (let j = 0; j < n; j++) {
+      const a = Math.PI * (1 - (n === 1 ? 0.5 : j / (n - 1)));
+      pts.push({a, x: 100 + Math.cos(a) * r * 94, y: 100 - Math.sin(a) * r * 94});
+    }
+  });
+  return pts.sort((p, q) => q.a - p.a || 0);
+}
+
+function renderHemi() {
+  const parties = (R.parties || []).filter(p => p.seats > 0);
+  const total = parties.reduce((a, p) => a + p.seats, 0);
+  const N = 350, pts = seatLayout(N), cols = [];
+  parties.forEach(p => { for (let i = 0; i < p.seats; i++) cols.push(p.color); });
+    let svg = '<title id="hemi-t">Reparto de escaños en el Congreso</title>';
+  svg += pts.map((p, i) => '<circle class="seat" cx="' + p.x.toFixed(2) + '" cy="' + p.y.toFixed(2) + '" r="2.15"' + (cols[i] ? ' fill="' + esc(cols[i]) + '"' : ' class="seat e"') + '/>').join('');
+  svg += '<line x1="100" y1="1" x2="100" y2="7" stroke="currentColor" stroke-width=".5"/>';
+  svg += '<text x="100" y="86" text-anchor="middle" font-family="Newsreader,serif" font-weight="650" font-size="17" fill="currentColor">' + (total && total < N ? total : N) + '</text>';
+  svg += '<text x="100" y="95" text-anchor="middle" font-size="6" fill="currentColor" opacity=".65">' + (total && total < N ? 'escaños asignados' : 'escaños · mayoría 176') + '</text>';
+  $('hemi').innerHTML = svg;
+  $('hemi').style.color = 'var(--ink)';
+  $('hemi-title').textContent = R.label || '';
+  $('hemi-note').textContent = R.status === 'pending' ? 'La marca superior señala el escaño 176' : (R.counted != null ? 'Escrutado: ' + pct(R.counted) : '');
+  const sorted = parties.slice().sort((a, b) => b.seats - a.seats);
+  $('legend').innerHTML = sorted.map(p => '<span><i class="sw" style="background:' + esc(p.color) + '"></i>' + esc(p.name) + ' <b>' + p.seats + '</b></span>').join('');
+}
+
+function renderNews() {
+  const items = (D.news || []).slice().sort((a, b) => b.date.localeCompare(a.date));
+  $('news').innerHTML = items.map(n => {
+    const d = new Date(n.date + 'T12:00:00+01:00');
+    return '<article class="item"><time datetime="' + esc(n.date) + '">' + esc(fmt(d, {day: 'numeric', month: 'short'})) + '</time><div>' +
+      (n.tag ? '<span class="tag">' + esc(n.tag) + '</span>' : '') +
+      '<h3>' + esc(n.title) + '</h3><p>' + esc(n.summary) + '</p>' +
+      (n.url ? '<a class="src" href="' + safeUrl(n.url) + '">Fuente: ' + esc(n.source) + '</a>' : '<span class="src">' + esc(n.source) + '</span>') +
+      '</div></article>';
+  }).join('');
+}
+
+function renderSide() {
+  const now = Date.now();
+  const up = (D.agenda || []).filter(a => Date.parse(a.when) > now - 2 * 3600e3).slice(0, 5);
+  $('agenda').innerHTML = up.length ? up.map(a => {
+    const d = new Date(Date.parse(a.when));
+    return '<li><span class="t">' + esc(fmt(d, {day: 'numeric', month: 'short'})) + '<br><span class="mute small">' + esc(fmt(d, {hour: '2-digit', minute: '2-digit'})) + '</span></span><span>' + esc(a.text) + '</span></li>';
+  }).join('') : '<li><span></span><span class="mute">No hay citas próximas.</span></li>';
+  $('facts').innerHTML = (D.facts || []).map(f => '<div><b>' + esc(f.v) + '</b><span>' + esc(f.l) + '</span></div>').join('');
+}
+
+function renderSections() {
+  $('analysis').innerHTML = (D.analysis || []).map(p => '<p>' + esc(p) + '</p>').join('');
+  const db = D.debate;
+  if (db) {
+    const when = Date.parse(db.when), done = Date.now() > when + 3 * 3600e3;
+    $('debate-body').innerHTML = '<div><h2>' + esc(db.title) + '</h2><p class="dek" style="font-size:17px">' + esc(db.text) + '</p>' +
+      '<p><strong>' + esc(fmt(new Date(when), {weekday: 'long', day: 'numeric', month: 'long'})) + ', ' + esc(fmt(new Date(when), {hour: '2-digit', minute: '2-digit'})) + '</strong>' + (done ? ' · <span class="mute">ya celebrado</span>' : '') + '</p>' +
+      '<p class="mute small">Dónde verlo: ' + esc(db.where) + '</p><p class="small">' + (db.who || []).map(esc).join(' · ') + '</p></div>' +
+      '<div><h3 style="margin-bottom:12px">Bloques temáticos</h3><ol class="blocks">' + (db.blocks || []).map(b => '<li>' + esc(b) + '</li>').join('') + '</ol></div>';
+  } else $('debate').hidden = true;
+  $('cands').innerHTML = (D.candidates || []).map(c => '<div class="cand" style="--c:' + esc(c.color) + '"><div class="p">' + esc(c.party) + '</div><h3>' + esc(c.name) + '</h3><p>' + esc(c.text) + '</p></div>').join('');
+  const today = fmt(new Date(), {year: 'numeric', month: '2-digit', day: '2-digit'}).split('/').reverse().join('-');
+  let nextSet = false;
+  $('cal').innerHTML = (D.calendar || []).map(c => {
+    const past = c.date < today; let cls = past ? ' past' : '';
+    if (!past && !nextSet) { cls = ' next'; nextSet = true; }
+    return '<div class="cal-row' + cls + '"><div class="d">' + esc(c.label) + '</div><div>' + esc(c.text) + '</div></div>';
+  }).join('');
+  $('steps').innerHTML = (D.steps || []).map(s => '<li><h3>' + esc(s.t) + '</h3><p>' + esc(s.p) + '</p></li>').join('');
+}
+
+function renderResults() {
+  const pending = R.status === 'pending';
+  $('res-title').textContent = pending ? 'Resultados: a partir de las 20:00 del 29N' : (R.status === 'final' ? 'Resultados del 29N' : 'Resultados del 29N, en directo');
+  $('res-sub').textContent = pending ? 'Mientras tanto, la referencia: el Congreso de 2023' : ('Fuente: ' + (R.source || '') + (R.updated ? ' · ' + fmt(new Date(Date.parse(R.updated)), {hour: '2-digit', minute: '2-digit'}) : ''));
+  $('res-stats').innerHTML = pending ? '' : [
+    ['Escrutado', pct(R.counted)], ['Participación', pct(R.turnout)], ['En 2023', pct(R.turnoutPrev)], ['Mayoría absoluta', '176']
+  ].map(([l, v]) => '<div class="stat"><span class="mute small">' + esc(l) + '</span><b>' + esc(v) + '</b></div>').join('');
+  const ps = (R.parties || []).slice().sort((a, b) => b.seats - a.seats || (b.pct || 0) - (a.pct || 0));
+  const max = Math.max(1, ...ps.map(p => p.seats));
+  const showPrev = !pending && ps.some(p => p.prev != null);
+  $('res-table').innerHTML = '<thead><tr><th>Partido</th><th class="r">Escaños</th>' + (showPrev ? '<th class="r">Dif. 2023</th>' : '') + (pending ? '' : '<th class="r">Votos</th>') + '<th class="barcell"></th></tr></thead><tbody>' +
+    ps.map(p => {
+      const diff = p.prev == null ? '' : (p.seats - p.prev > 0 ? '+' : '') + (p.seats - p.prev);
+      return '<tr><td><span style="display:inline-flex;gap:8px;align-items:center"><i class="sw" style="background:' + esc(p.color) + '"></i>' + esc(p.name) + '</span></td><td class="r"><b>' + p.seats + '</b></td>' +
+        (showPrev ? '<td class="r">' + esc(diff) + '</td>' : '') + (pending ? '' : '<td class="r">' + pct(p.pct) + '</td>') +
+        '<td class="barcell"><div class="hbar" style="--c:' + esc(p.color) + ';width:' + (p.seats / max * 100).toFixed(1) + '%"></div></td></tr>';
+    }).join('') + '</tbody>';
+  $('res-note').innerHTML = esc(R.note || '') + (R.sourceUrl ? ' <a href="' + safeUrl(R.sourceUrl) + '">Datos oficiales</a>' : '');
+}
+
+// Anuncios: IDs de bloque creados en AdSense > Anuncios > Por bloque de anuncios.
+// Si un hueco no tiene ID válido, se oculta para no mostrar recuadros vacíos.
+const AD_CLIENT = 'ca-{{PUB_ID}}';
+const AD_SLOTS = {top: '{{SLOT_TOP}}', side: '{{SLOT_SIDE}}', feed: '{{SLOT_FEED}}', bottom: '{{SLOT_BOTTOM}}'};
+document.querySelectorAll('.ad[data-slot]').forEach(el => {
+  const id = AD_SLOTS[el.dataset.slot];
+  if (!/^\d{6,}$/.test(id) || !/^ca-pub-\d+$/.test(AD_CLIENT)) { el.remove(); return; }
+  const box = el.querySelector('.ad-inner');
+  box.textContent = ''; box.style.background = 'none'; box.style.border = '0';
+  const ins = document.createElement('ins');
+  ins.className = 'adsbygoogle'; ins.style.display = 'block';
+  ins.dataset.adClient = AD_CLIENT; ins.dataset.adSlot = id;
+  ins.dataset.adFormat = 'auto'; ins.dataset.fullWidthResponsive = 'true';
+  box.appendChild(ins);
+  try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+});
+const cs = $('cookie-settings');
+if (cs) cs.addEventListener('click', e => {
+  e.preventDefault();
+  window.googlefc = window.googlefc || {}; googlefc.callbackQueue = googlefc.callbackQueue || [];
+  googlefc.callbackQueue.push({'CONSENT_DATA_READY': () => googlefc.showRevocationMessage()});
+});
+
+renderHead(); renderStatus(); renderHemi(); renderNews(); renderSide(); renderSections(); renderResults();
+const tick = setInterval(renderStatus, 30000);
+}
+</script>
+</body>
+</html>
