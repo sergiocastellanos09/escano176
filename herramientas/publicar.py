@@ -81,6 +81,40 @@ def write_results(d):
     return r
 
 
+# ---------- 1b. Contenido estático de la portada (para buscadores) ----------
+MESES = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sept", "oct", "nov", "dic"]
+
+
+def prerender_index(d):
+    """Escribe titular, entradilla y noticias directamente en el HTML de index.html.
+    El JavaScript de la página lo vuelve a dibujar igual al cargar; esto es para que
+    Google y las vistas previas de enlaces vean el contenido sin ejecutar JavaScript."""
+    path = p("index.html")
+    s = open(path, encoding="utf-8").read()
+    s2 = re.sub(r'(<h1 id="headline">).*?(</h1>)', lambda m: m.group(1) + esc(d.get("headline", "")) + m.group(2), s, count=1, flags=re.S)
+    s2 = re.sub(r'(<p class="dek" id="dek">).*?(</p>)', lambda m: m.group(1) + esc(d.get("dek", "")) + m.group(2), s2, count=1, flags=re.S)
+    items = []
+    for n in sorted(d.get("news", []), key=lambda x: x.get("date", ""), reverse=True):
+        try:
+            y, mo, da = (int(x) for x in n["date"].split("-"))
+            fecha = f"{da} {MESES[mo - 1]}"
+        except Exception:
+            fecha = esc(n.get("date", ""))
+        url = n.get("url", "")
+        src = (f'<a class="src" href="{esc(url)}">Fuente: {esc(n.get("source"))}</a>' if str(url).startswith("https://")
+               else f'<span class="src">{esc(n.get("source"))}</span>')
+        items.append(f'<article class="item"><time datetime="{esc(n.get("date"))}">{fecha}</time><div>'
+                     + (f'<span class="tag">{esc(n.get("tag"))}</span>' if n.get("tag") else "")
+                     + f'<h3>{esc(n.get("title"))}</h3><p>{esc(n.get("summary"))}</p>{src}</div></article>')
+    s2 = re.sub(r'(<div class="news" id="news">).*?(</div>\s*</div>\s*<aside>)', lambda m: m.group(1) + "".join(items) + m.group(2), s2, count=1, flags=re.S)
+    desc = d.get("dek", "")[:155]
+    s2 = re.sub(r'(<meta name="description" content=")[^"]*(">)', lambda m: m.group(1) + esc(desc) + m.group(2), s2, count=1)
+    if s2.count('id="site-data"') != 1:
+        fail("prerender: index.html dañado")
+    if s2 != s:
+        open(path, "w", encoding="utf-8").write(s2)
+
+
 # ---------- 2. Provincias ----------
 HEAD = """<!DOCTYPE html>
 <html lang="es">
@@ -298,6 +332,7 @@ def write_sitemap(extra):
 if __name__ == "__main__":
     d = read_site_data()
     write_results(d)
+    prerender_index(d)
     pages = build_provinces()
     draw_og(d)
     write_sitemap(pages)
