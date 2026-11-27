@@ -72,6 +72,23 @@ def read_site_data():
     return d
 
 
+def fix_prev(d):
+    """Frente Amplio es el heredero del espacio de Sumar: si el escrutinio no trae su
+    comparación con 2023, se usa la de Sumar (31 escaños) y se anota en index.html."""
+    r = d.get("results") or {}
+    changed = False
+    for x in r.get("parties", []):
+        if x.get("name") == "Frente Amplio" and x.get("prev") is None and r.get("status") != "pending":
+            x["prev"] = 31
+            changed = True
+    if changed:
+        path = p("index.html")
+        s = open(path, encoding="utf-8").read()
+        m = re.search(r'(<script type="application/json" id="site-data">\s*)(.*?)(\s*</script>)', s, re.S)
+        s = s[:m.start(2)] + json.dumps(d, ensure_ascii=False, indent=2) + s[m.end(2):]
+        open(path, "w", encoding="utf-8").write(s)
+
+
 def write_results(d):
     r = dict(d.get("results") or {})
     r["siteUpdated"] = d.get("updated")
@@ -312,7 +329,7 @@ def draw_og(d):
     y = 290
     for x in top:
         g.ellipse([60, y + 6, 80, y + 26], fill=color(x.get("color")))
-        g.text((96, y), f"{x.get('name')}  {int(x.get('seats') or 0)}", font=font(30, True), fill="#12141a")
+        g.text((96, y), f"{str(x.get('name')).split(' (')[0]}  {int(x.get('seats') or 0)}", font=font(30, True), fill="#12141a")
         y += 48
     g.text((60, 580), "escano176.es", font=font(24), fill="#5d6370")
     img.save(p("og.png"), optimize=True)
@@ -331,6 +348,7 @@ def write_sitemap(extra):
 
 if __name__ == "__main__":
     d = read_site_data()
+    fix_prev(d)
     write_results(d)
     prerender_index(d)
     pages = build_provinces()

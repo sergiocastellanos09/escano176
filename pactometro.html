@@ -111,10 +111,10 @@
 <script>
 {
 const FALLBACK = {label: 'Congreso tras las elecciones de 2023', status: 'pending', parties: [
-  {name:'Sumar',seats:31,color:'#e51c55'},{name:'ERC',seats:7,color:'#f2a900'},{name:'EH Bildu',seats:6,color:'#a7c520'},{name:'BNG',seats:1,color:'#76b3dd'},
+  {name:'Sumar (hoy Frente Amplio)',seats:31,color:'#e51c55'},{name:'ERC',seats:7,color:'#f2a900'},{name:'EH Bildu',seats:6,color:'#a7c520'},{name:'BNG',seats:1,color:'#76b3dd'},
   {name:'PSOE',seats:121,color:'#e30613'},{name:'PNV',seats:5,color:'#3f7a3a'},{name:'Junts',seats:7,color:'#20b2a6'},{name:'CC',seats:1,color:'#e6c300'},
   {name:'UPN',seats:1,color:'#2a52be'},{name:'PP',seats:137,color:'#1d84ce'},{name:'Vox',seats:33,color:'#5ac035'}]};
-const CATALOG = [['Podemos','#6b2a7a'],['Frente Amplio','#b5297a'],['Sumar','#e51c55'],['ERC','#f2a900'],['EH Bildu','#a7c520'],['BNG','#76b3dd'],['PSOE','#e30613'],['PNV','#3f7a3a'],['Junts','#20b2a6'],['CC','#e6c300'],['UPN','#2a52be'],['PP','#1d84ce'],['Vox','#5ac035'],['SALF','#6e6e6e']];
+const CATALOG = [['Podemos','#6b2a7a'],['Frente Amplio','#b5297a'],['ERC','#f2a900'],['EH Bildu','#a7c520'],['BNG','#76b3dd'],['PSOE','#e30613'],['PNV','#3f7a3a'],['Junts','#20b2a6'],['CC','#e6c300'],['UPN','#2a52be'],['PP','#1d84ce'],['Vox','#5ac035'],['SALF','#6e6e6e']];
 const OTHERS = 'Otros';
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -217,6 +217,7 @@ function setSeats(name, n) {
 function start(data) {
   editable = (data.status || 'pending') === 'pending';
   base = (data.parties || []).filter(p => p.seats > 0).map(p => ({name: p.name, seats: +p.seats, color: p.color}));
+  if (editable) base = base.map(p => /^Sumar/.test(p.name) ? {name: 'Frente Amplio', seats: p.seats, color: '#b5297a'} : p);
   parties = base.map(p => Object.assign({}, p));
   const q = new URLSearchParams(location.search);
   if (editable && q.get('e')) {
@@ -228,7 +229,7 @@ function start(data) {
   [...parties.map(p => p.name), OTHERS].forEach(n => { vote[n] = si.includes(n) ? 'si' : ab.includes(n) ? 'abs' : 'no'; });
   $('scen').hidden = !editable;
   $('src').textContent = editable
-    ? 'Punto de partida: ' + (data.label || 'Congreso de 2023') + '. Cambia los escaños con − y + para probar tu escenario. Cuando haya escrutinio, se fijarán los resultados oficiales.'
+    ? 'Punto de partida: ' + (data.label || 'Congreso de 2023') + '. Frente Amplio aparece con los 31 escaños que sacó Sumar en 2023, espacio del que es heredero (entonces incluía también a Podemos, que ahora va por separado). Cambia los escaños con − y + para probar tu escenario; cuando haya escrutinio, se fijarán los resultados oficiales.'
     : 'Escaños: ' + (data.label || 'escrutinio del 29N') + (data.counted != null ? ' (' + String(data.counted).replace('.', ',') + ' % escrutado)' : '') + '. Resultados oficiales: los escaños no se pueden modificar.';
   renderRows(); update();
 }
