@@ -38,6 +38,15 @@
 .seg button+button{border-left:1px solid var(--line)}
 .seg button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
 .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.row{grid-template-columns:minmax(0,1fr) auto auto}
+.stp{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.stp button{font:inherit;font-size:18px;width:36px;min-height:40px;border:0;background:var(--bg);color:var(--ink);cursor:pointer}
+.stp input{width:48px;min-height:40px;border:0;border-left:1px solid var(--line);border-right:1px solid var(--line);border-radius:0;text-align:center;padding:0;font-variant-numeric:tabular-nums}
+.row .x{border:0;background:none;color:var(--mute);font-size:18px;cursor:pointer;min-width:28px;min-height:40px}
+.scen{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 10px;padding:10px 12px;background:var(--soft);border-radius:8px;font-size:15px}
+.scen b{font-variant-numeric:tabular-nums}.scen .bad{color:var(--no)}
+.addp{display:flex;gap:8px;margin-top:10px}.addp select{flex:1}
+@media(max-width:520px){.row{grid-template-columns:minmax(0,1fr) auto;row-gap:6px}.row .seg{grid-column:1/-1;justify-self:start}}
 @media(max-width:820px){.tool{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
@@ -59,7 +68,7 @@
 
 <main class="wrap">
   <h1>Pactómetro: ¿quién suma 176?</h1>
-  <p class="lead">Elige qué hace cada grupo en la votación de investidura: votar sí, abstenerse o votar no. El pactómetro te dice si el candidato saldría elegido en primera o en segunda votación.</p>
+  <p class="lead">Elige qué hace cada grupo en la votación de investidura: votar sí, abstenerse o votar no. El pactómetro te dice si el candidato saldría elegido en primera o en segunda votación. Hasta que haya resultados, también puedes cambiar los escaños de cada partido y probar tu propio escenario.</p>
   <p class="small mute" id="src"></p>
 
   <section class="tool">
@@ -73,7 +82,9 @@
       <div class="verdict" id="verdict" aria-live="polite"></div>
     </div>
     <div>
+      <div class="scen" id="scen" hidden></div>
       <div class="rows" id="rows"></div>
+      <div class="addp" id="addp" hidden><select id="addsel" aria-label="Añadir partido"></select><button class="btn" id="addbtn" type="button">Añadir</button></div>
       <div class="actions">
         <button class="btn primary" id="copy" type="button">Copiar enlace a esta combinación</button>
         <button class="btn" id="reset" type="button">Reiniciar</button>
@@ -88,7 +99,7 @@
     <p><strong>Primera votación:</strong> el candidato necesita mayoría absoluta, es decir, al menos 176 votos a favor de los 350 diputados. Las abstenciones no cuentan a favor.</p>
     <p><strong>Segunda votación,</strong> 48 horas después: basta con mayoría simple, es decir, más votos a favor que en contra. Aquí las abstenciones sí importan, porque no suman a los noes.</p>
     <p>Si en dos meses desde la primera votación ningún candidato logra la investidura, las Cortes se disuelven y se repiten las elecciones.</p>
-    <p class="small mute">Simulación orientativa: asume que todos los diputados de un grupo votan lo mismo y que están presentes los 350.</p>
+    <p class="small mute">Simulación orientativa: asume que todos los diputados de un grupo votan lo mismo y que están presentes los 350. Los escenarios con escaños modificados los crea cada usuario: no son una encuesta ni una estimación de Escaño 176.</p>
   </section>
 </main>
 
@@ -103,10 +114,13 @@ const FALLBACK = {label: 'Congreso tras las elecciones de 2023', status: 'pendin
   {name:'Sumar',seats:31,color:'#e51c55'},{name:'ERC',seats:7,color:'#f2a900'},{name:'EH Bildu',seats:6,color:'#a7c520'},{name:'BNG',seats:1,color:'#76b3dd'},
   {name:'PSOE',seats:121,color:'#e30613'},{name:'PNV',seats:5,color:'#3f7a3a'},{name:'Junts',seats:7,color:'#20b2a6'},{name:'CC',seats:1,color:'#e6c300'},
   {name:'UPN',seats:1,color:'#2a52be'},{name:'PP',seats:137,color:'#1d84ce'},{name:'Vox',seats:33,color:'#5ac035'}]};
+const CATALOG = [['Podemos','#6b2a7a'],['Frente Amplio','#b5297a'],['Sumar','#e51c55'],['ERC','#f2a900'],['EH Bildu','#a7c520'],['BNG','#76b3dd'],['PSOE','#e30613'],['PNV','#3f7a3a'],['Junts','#20b2a6'],['CC','#e6c300'],['UPN','#2a52be'],['PP','#1d84ce'],['Vox','#5ac035'],['SALF','#6e6e6e']];
+const OTHERS = 'Otros';
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const okColor = c => /^#[0-9a-fA-F]{3,8}$/.test(c || '') ? c : '#888';
-let parties = [], vote = {};
+const orderOf = n => { const i = CATALOG.findIndex(c => c[0] === n); return i < 0 ? 99 : i; };
+let base = [], parties = [], vote = {}, editable = false;
 
 function layout(N) {
   const rows = 12, r0 = 0.4, radii = [];
@@ -120,66 +134,131 @@ function layout(N) {
 }
 const PTS = layout(350);
 
-function drawHemi() {
+function full() {
+  const list = parties.filter(p => p.seats > 0).slice().sort((a, b) => orderOf(a.name) - orderOf(b.name));
+  const assigned = parties.reduce((a, p) => a + p.seats, 0);
+  if (editable && assigned < 350) list.push({name: OTHERS, seats: 350 - assigned, color: '#9aa1ad'});
+  return list;
+}
+
+function drawHemi(list) {
   const seats = [];
-  parties.forEach(p => { for (let i = 0; i < p.seats; i++) seats.push(p); });
+  list.forEach(p => { for (let i = 0; i < p.seats && seats.length < 350; i++) seats.push(p); });
   let svg = '';
   PTS.forEach((pt, i) => {
     const p = seats[i]; const v = p ? vote[p.name] : 'no';
     const fill = !p || v === 'no' ? 'var(--line)' : okColor(p.color);
-    const op = p && v === 'abs' ? '.35' : '1';
-    svg += '<circle class="seat" cx="' + pt.x.toFixed(2) + '" cy="' + pt.y.toFixed(2) + '" r="2.15" style="fill:' + fill + ';opacity:' + op + '"/>';
+    svg += '<circle class="seat" cx="' + pt.x.toFixed(2) + '" cy="' + pt.y.toFixed(2) + '" r="2.15" style="fill:' + fill + ';opacity:' + (p && v === 'abs' ? '.35' : '1') + '"/>';
   });
   svg += '<line x1="100" y1="1" x2="100" y2="7" stroke="currentColor" stroke-width=".5"/>';
-  $('hemi').innerHTML = svg;
-  $('hemi').style.color = 'var(--ink)';
+  $('hemi').innerHTML = svg; $('hemi').style.color = 'var(--ink)';
 }
 
 function update() {
+  const assigned = parties.reduce((a, p) => a + p.seats, 0);
+  const list = full();
+  if (!(OTHERS in vote)) vote[OTHERS] = 'no';
   let si = 0, ab = 0, no = 0;
-  parties.forEach(p => { const v = vote[p.name]; if (v === 'si') si += p.seats; else if (v === 'abs') ab += p.seats; else no += p.seats; });
+  list.forEach(p => { const v = vote[p.name]; if (v === 'si') si += p.seats; else if (v === 'abs') ab += p.seats; else no += p.seats; });
   $('t-si').textContent = si; $('t-abs').textContent = ab; $('t-no').textContent = no;
+  if (editable) {
+    $('scen').innerHTML = assigned > 350
+      ? '<span class="bad">Has repartido <b>' + assigned + '</b> escaños: sobran <b>' + (assigned - 350) + '</b>. Quita alguno para ver el resultado.</span>'
+      : 'Escaños repartidos: <b>' + assigned + '</b> de 350' + (assigned < 350 ? ' · los <b>' + (350 - assigned) + '</b> que faltan van a «Otros»' : '');
+  }
   const v = $('verdict');
-  if (si >= 176) { v.className = 'verdict ok'; v.innerHTML = '<strong>Investidura en primera votación</strong>Hay mayoría absoluta: ' + si + ' síes, ' + (si - 175) + ' por encima de 175.'; }
+  if (assigned > 350) { v.className = 'verdict no'; v.innerHTML = '<strong>Revisa los escaños</strong>El Congreso tiene 350 diputados.'; }
+  else if (si >= 176) { v.className = 'verdict ok'; v.innerHTML = '<strong>Investidura en primera votación</strong>Hay mayoría absoluta: ' + si + ' síes, ' + (si - 175) + ' por encima de 175.'; }
   else if (si > no) { v.className = 'verdict ok'; v.innerHTML = '<strong>Investidura en segunda votación</strong>No llega a 176 (faltan ' + (176 - si) + '), pero hay más síes que noes: ' + si + ' frente a ' + no + '.'; }
-  else if (si === 0) { v.className = 'verdict'; v.innerHTML = '<strong>Elige quién vota sí</strong>Pulsa «Sí» o «Abst.» en los grupos de la derecha.'; }
+  else if (si === 0) { v.className = 'verdict'; v.innerHTML = '<strong>Elige quién vota sí</strong>Pulsa «Sí» o «Abst.» en los grupos.'; }
   else { v.className = 'verdict no'; v.innerHTML = '<strong>No hay investidura</strong>Faltan ' + (176 - si) + ' para la mayoría absoluta y los noes (' + no + ') superan o igualan a los síes (' + si + ').'; }
-  drawHemi(); syncUrl();
+  drawHemi(assigned > 350 ? [] : list); syncUrl();
+}
+
+function segHtml(name) {
+  const id = esc(name);
+  return '<span class="seg" role="group" aria-label="Voto de ' + id + '">' + ['si', 'abs', 'no'].map(k => '<button type="button" data-p="' + id + '" data-v="' + k + '" aria-pressed="' + (vote[name] === k) + '">' + ({si: 'Sí', abs: 'Abst.', no: 'No'})[k] + '</button>').join('') + '</span>';
 }
 
 function renderRows() {
-  $('rows').innerHTML = parties.slice().sort((a, b) => b.seats - a.seats).map(p => {
+  const rows = parties.slice().sort((a, b) => b.seats - a.seats || orderOf(a.name) - orderOf(b.name));
+  let html = rows.map(p => {
     const id = esc(p.name);
-    return '<div class="row"><span class="n"><i class="sw" style="background:' + okColor(p.color) + '"></i>' + id + ' <small>' + p.seats + '</small></span>' +
-      '<span class="seg" role="group" aria-label="Voto de ' + id + '">' +
-      ['si', 'abs', 'no'].map(k => '<button type="button" data-p="' + id + '" data-v="' + k + '" aria-pressed="' + (vote[p.name] === k) + '">' + ({si: 'Sí', abs: 'Abst.', no: 'No'})[k] + '</button>').join('') +
-      '</span></div>';
+    const seats = editable
+      ? '<span class="stp"><button type="button" data-step="-1" data-p="' + id + '" aria-label="Quitar un escaño a ' + id + '">−</button><input type="number" min="0" max="350" inputmode="numeric" data-seats="' + id + '" value="' + p.seats + '" aria-label="Escaños de ' + id + '"><button type="button" data-step="1" data-p="' + id + '" aria-label="Añadir un escaño a ' + id + '">+</button></span>'
+      : '';
+    return '<div class="row"><span class="n"><i class="sw" style="background:' + okColor(p.color) + '"></i>' + id + (editable ? '' : ' <small>' + p.seats + '</small>') + '</span>' + seats + segHtml(p.name) + '</div>';
   }).join('');
+  const assigned = parties.reduce((a, p) => a + p.seats, 0);
+  if (editable && assigned < 350) html += '<div class="row"><span class="n"><i class="sw" style="background:#9aa1ad"></i>Otros <small>' + (350 - assigned) + '</small></span><span></span>' + segHtml(OTHERS) + '</div>';
+  $('rows').innerHTML = html;
+  if (editable) {
+    const missing = CATALOG.filter(c => !parties.some(p => p.name === c[0]));
+    $('addp').hidden = !missing.length;
+    $('addsel').innerHTML = missing.map(c => '<option>' + esc(c[0]) + '</option>').join('');
+  }
 }
 
 function syncUrl() {
-  const si = parties.filter(p => vote[p.name] === 'si').map(p => p.name), ab = parties.filter(p => vote[p.name] === 'abs').map(p => p.name);
-  const q = new URLSearchParams(); if (si.length) q.set('si', si.join(',')); if (ab.length) q.set('abs', ab.join(','));
+  const q = new URLSearchParams();
+  const si = full().filter(p => vote[p.name] === 'si').map(p => p.name), ab = full().filter(p => vote[p.name] === 'abs').map(p => p.name);
+  if (si.length) q.set('si', si.join(',')); if (ab.length) q.set('abs', ab.join(','));
+  const changed = editable && (parties.length !== base.length || parties.some(p => { const b = base.find(x => x.name === p.name); return !b || b.seats !== p.seats; }));
+  if (changed) q.set('e', parties.map(p => p.name + ':' + p.seats).join(','));
   const s = q.toString();
   try { history.replaceState(null, '', location.pathname + (s ? '?' + s : '')); } catch (e) {}
 }
 
+function setSeats(name, n) {
+  const p = parties.find(x => x.name === name); if (!p) return;
+  p.seats = Math.max(0, Math.min(350, Math.round(n) || 0));
+}
+
 function start(data) {
-  parties = (data.parties || []).filter(p => p.seats > 0);
+  editable = (data.status || 'pending') === 'pending';
+  base = (data.parties || []).filter(p => p.seats > 0).map(p => ({name: p.name, seats: +p.seats, color: p.color}));
+  parties = base.map(p => Object.assign({}, p));
   const q = new URLSearchParams(location.search);
+  if (editable && q.get('e')) {
+    const custom = [];
+    q.get('e').split(',').forEach(t => { const i = t.lastIndexOf(':'); if (i < 1) return; const n = t.slice(0, i), k = parseInt(t.slice(i + 1)); const known = CATALOG.find(c => c[0] === n) || base.find(b => b.name === n); if (known && k >= 0 && k <= 350) custom.push({name: n, seats: k, color: known.color || known[1]}); });
+    if (custom.length) parties = custom;
+  }
   const si = (q.get('si') || '').split(','), ab = (q.get('abs') || '').split(',');
-  parties.forEach(p => { vote[p.name] = si.includes(p.name) ? 'si' : ab.includes(p.name) ? 'abs' : 'no'; });
-  $('src').textContent = data.status === 'pending' ? 'Escaños: ' + (data.label || 'Congreso de 2023') + '. Tras el 29N se actualizará solo con el escrutinio.' : 'Escaños: ' + (data.label || 'escrutinio del 29N') + (data.counted != null ? ' (' + String(data.counted).replace('.', ',') + ' % escrutado)' : '') + '.';
+  [...parties.map(p => p.name), OTHERS].forEach(n => { vote[n] = si.includes(n) ? 'si' : ab.includes(n) ? 'abs' : 'no'; });
+  $('scen').hidden = !editable;
+  $('src').textContent = editable
+    ? 'Punto de partida: ' + (data.label || 'Congreso de 2023') + '. Cambia los escaños con − y + para probar tu escenario. Cuando haya escrutinio, se fijarán los resultados oficiales.'
+    : 'Escaños: ' + (data.label || 'escrutinio del 29N') + (data.counted != null ? ' (' + String(data.counted).replace('.', ',') + ' % escrutado)' : '') + '. Resultados oficiales: los escaños no se pueden modificar.';
   renderRows(); update();
 }
 
 $('rows').addEventListener('click', e => {
-  const b = e.target.closest('button[data-p]'); if (!b) return;
+  const st = e.target.closest('button[data-step]');
+  if (st) { const p = parties.find(x => x.name === st.dataset.p); if (p) { setSeats(p.name, p.seats + (+st.dataset.step)); const inp = st.parentElement.querySelector('input'); inp.value = p.seats; update(); refreshOthers(); } return; }
+  const b = e.target.closest('button[data-v]'); if (!b) return;
   vote[b.dataset.p] = b.dataset.v;
   b.parentElement.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
   update();
 });
-$('reset').addEventListener('click', () => { parties.forEach(p => vote[p.name] = 'no'); renderRows(); update(); });
+$('rows').addEventListener('input', e => {
+  const inp = e.target.closest('input[data-seats]'); if (!inp) return;
+  setSeats(inp.dataset.seats, parseInt(inp.value)); update(); refreshOthers();
+});
+function refreshOthers() {
+  const assigned = parties.reduce((a, p) => a + p.seats, 0);
+  const rows = [...$('rows').querySelectorAll('.row')];
+  const last = rows[rows.length - 1];
+  const hasOthers = last && last.querySelector('button[data-p="' + OTHERS + '"]');
+  if ((assigned < 350) !== !!hasOthers) { const f = document.activeElement && document.activeElement.dataset ? document.activeElement.dataset.seats : null; renderRows(); if (f) { const el = $('rows').querySelector('input[data-seats="' + CSS.escape(f) + '"]'); if (el) { el.focus(); } } }
+  else if (hasOthers) last.querySelector('small').textContent = 350 - assigned;
+}
+$('addbtn').addEventListener('click', () => {
+  const n = $('addsel').value; const c = CATALOG.find(x => x[0] === n); if (!c) return;
+  parties.push({name: n, seats: 0, color: c[1]}); vote[n] = vote[n] || 'no'; renderRows(); update();
+  const el = $('rows').querySelector('input[data-seats="' + CSS.escape(n) + '"]'); if (el) el.focus();
+});
+$('reset').addEventListener('click', () => { parties = base.map(p => Object.assign({}, p)); Object.keys(vote).forEach(k => vote[k] = 'no'); renderRows(); update(); });
 $('copy').addEventListener('click', async () => {
   try { await navigator.clipboard.writeText(location.href); $('copied').textContent = 'Enlace copiado.'; }
   catch (e) { $('copied').textContent = 'Copia este enlace: ' + location.href; }
