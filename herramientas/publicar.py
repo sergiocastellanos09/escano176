@@ -175,7 +175,7 @@ HEAD = """<!DOCTYPE html>
 FOOT = """</main>
 <footer><div class="wrap cols">
   <span>Escaño 176 · Información independiente y no partidista</span>
-  <a href="/aviso-legal.html">Aviso legal</a><a href="/privacidad.html">Privacidad y cookies</a>
+  <a href="/quienes-somos.html">Quiénes somos</a><a href="/contacto.html">Contacto</a><a href="/aviso-legal.html">Aviso legal</a><a href="/privacidad.html">Privacidad y cookies</a>
 </div></footer>
 <script>
 {const b=document.getElementById('menu-btn'),n=document.getElementById('main-nav');
@@ -340,7 +340,7 @@ def write_sitemap(extra):
     today = dt.datetime.now(MADRID).date().isoformat()
     urls = [("/", "hourly", "1.0"), ("/pactometro.html", "daily", "0.9"), ("/calculadora-dhondt.html", "monthly", "0.8"),
             ("/provincias.html", "daily", "0.8")] + [(u, "daily", "0.7") for u in extra] + \
-           [("/aviso-legal.html", "yearly", "0.2"), ("/privacidad.html", "yearly", "0.2")]
+           [("/quienes-somos.html", "monthly", "0.4"), ("/contacto.html", "yearly", "0.3"), ("/aviso-legal.html", "yearly", "0.2"), ("/privacidad.html", "yearly", "0.2")]
     body = "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{today}</lastmod><changefreq>{c}</changefreq><priority>{pr}</priority></url>\n" for u, c, pr in urls)
     with open(p("sitemap.xml"), "w", encoding="utf-8") as f:
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + body + "</urlset>\n")
